@@ -1,16 +1,24 @@
 class MaelysExecutor < Formula
-  desc "Policy-agnostic process execution and sandbox backend library"
+  desc "Run commands through portable sandbox profiles; includes the C SDK"
   homepage "https://github.com/maelys-dev/maelys-executor"
-  url "https://github.com/maelys-dev/maelys-executor/archive/refs/tags/v0.9.0.tar.gz"
-  sha256 "1ee450d06c89d7f69a291f8960e4844c19a7c34e4e9672baa688e2d817f4d783"
+  url "https://github.com/maelys-dev/maelys-executor/archive/refs/tags/v0.10.0.tar.gz"
+  sha256 "c6ffa32eb78919b6f9db78ff63195b46bdb2400c4b1c791bd78c11dc31ededda"
   license all_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     depends_on macos: :sequoia
   end
 
+  resource "maelys-sandbox" do
+    url "https://github.com/maelys-dev/maelys-sandbox/archive/refs/tags/v0.2.0.tar.gz"
+    sha256 "d5399b88889be8eb6449890cb12c8e9b40d61a63cda12db411c3ab7dd14b13c3"
+  end
+
   def install
-    system "make", "install", "PREFIX=#{prefix}"
+    sandbox = buildpath/"vendor/maelys-sandbox"
+    resource("maelys-sandbox").stage sandbox
+    system "make", "install", "install-cli", "PREFIX=#{prefix}",
+           "MAELYS_SANDBOX_DIR=#{sandbox}", "MAELYS_SANDBOX_PINNED_ARCHIVE=1"
   end
 
   test do
@@ -23,5 +31,6 @@ class MaelysExecutor < Formula
     system ENV.cc, "smoke.c", "-I#{include}", "-L#{lib}",
            "-lmaelys_executor", "-pthread", "-o", "smoke"
     system "./smoke"
+    assert_equal version.to_s, shell_output("#{bin}/maelys-exec --version").strip
   end
 end
