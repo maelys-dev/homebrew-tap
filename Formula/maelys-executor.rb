@@ -1,8 +1,8 @@
 class MaelysExecutor < Formula
   desc "Policy-agnostic process execution and sandbox backend library"
   homepage "https://github.com/maelys-dev/maelys-executor"
-  url "https://github.com/maelys-dev/maelys-executor/archive/refs/tags/v0.8.0.tar.gz"
-  sha256 "625b0f61208edd794a9741d27d910b3b4dccc9b5f24af2f0a6be1354ed2a1522"
+  url "https://github.com/maelys-dev/maelys-executor/archive/refs/tags/v0.9.0.tar.gz"
+  sha256 "1ee450d06c89d7f69a291f8960e4844c19a7c34e4e9672baa688e2d817f4d783"
   license all_of: ["MIT", "Apache-2.0"]
 
   on_macos do
