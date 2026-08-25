@@ -4,6 +4,7 @@ class MaelysWarden < Formula
   url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.14.0.tar.gz"
   sha256 "ec455a002ec6f39103c9fc4df682607f82c6e85864a8c53798ac21f158b5a784"
   license all_of: ["MIT", "Apache-2.0"]
+  revision 1
 
   on_macos do
     depends_on macos: :sequoia
@@ -26,6 +27,9 @@ class MaelysWarden < Formula
   end
 
   def install
+    # Several install goals share recursively rebuilt dependency archives.
+    # Homebrew exports parallel MAKEFLAGS, so serialize this multi-goal make.
+    ENV.deparallelize
     sandbox = buildpath/"vendor/maelys-sandbox"
     netd = buildpath/"vendor/maelys-netd"
     system = buildpath/"vendor/maelys-system"
