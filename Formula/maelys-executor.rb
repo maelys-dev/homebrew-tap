@@ -1,8 +1,8 @@
 class MaelysExecutor < Formula
   desc "Run commands through portable sandbox profiles; includes the C SDK"
   homepage "https://github.com/maelys-dev/maelys-executor"
-  url "https://github.com/maelys-dev/maelys-executor/archive/refs/tags/v0.12.0.tar.gz"
-  sha256 "0e1aae58d137756f3542605057e8560b033348cf04252fe73df58a939420ce22"
+  url "https://github.com/maelys-dev/maelys-executor/archive/refs/tags/v0.13.0.tar.gz"
+  sha256 "55365f3ad8d316b88881c1fb3c3c3350d592b074e039e3f6748436e5998100c9"
   license all_of: ["MIT", "Apache-2.0"]
 
   on_macos do
