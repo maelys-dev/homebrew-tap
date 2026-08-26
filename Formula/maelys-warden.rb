@@ -1,8 +1,8 @@
 class MaelysWarden < Formula
-  desc "Run commands through portable sandbox profiles; includes the C SDK"
+  desc "Run commands through portable sandbox policy; includes the C SDK"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.17.1.tar.gz"
-  sha256 "4765720a3c8ca4e3e496c66c39fe25f2465e2c0e62f82024caf5d6c2e45792b0"
+  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.18.0.tar.gz"
+  sha256 "bfb3a534bbecc56035b7e5bbfa92deb8b5b96b98a71bc938f4e5cff6880bece3"
   license all_of: ["MIT", "Apache-2.0"]
 
   on_macos do
@@ -50,7 +50,7 @@ class MaelysWarden < Formula
     (testpath/"smoke.c").write <<~EOS
       #include <maelys/warden.h>
       int main(void) {
-        return MAELYS_WARDEN_ABI_VERSION == 1u ? 0 : 1;
+        return MAELYS_WARDEN_ABI_VERSION == 2u ? 0 : 1;
       }
     EOS
     system ENV.cc, "smoke.c", "-I#{include}", "-L#{lib}",
