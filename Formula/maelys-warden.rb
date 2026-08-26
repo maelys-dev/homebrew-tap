@@ -1,8 +1,8 @@
 class MaelysWarden < Formula
   desc "Run commands through portable sandbox profiles; includes the C SDK"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.15.0.tar.gz"
-  sha256 "73cd138fb43f4649587fe56fdce058bf645d512c69e460397b4681ad90e06599"
+  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.17.1.tar.gz"
+  sha256 "4765720a3c8ca4e3e496c66c39fe25f2465e2c0e62f82024caf5d6c2e45792b0"
   license all_of: ["MIT", "Apache-2.0"]
 
   on_macos do
@@ -15,8 +15,8 @@ class MaelysWarden < Formula
   end
 
   resource "maelys-netd" do
-    url "https://github.com/maelys-dev/maelys-netd/archive/refs/tags/v0.6.1.tar.gz"
-    sha256 "7c356e980d719d222b47e977623875680739b33769e1bd0ed429476f15b4184c"
+    url "https://github.com/maelys-dev/maelys-netd/archive/refs/tags/v0.7.0.tar.gz"
+    sha256 "3f9dd708f71dcb1042d8825d70084370f32c0989fa0713da3a5a38f76d7570b8"
   end
 
   resource "maelys-system" do
