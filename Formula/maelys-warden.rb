@@ -1,8 +1,8 @@
 class MaelysWarden < Formula
   desc "Run commands through portable sandbox policy; includes the C SDK"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.21.0.tar.gz"
-  sha256 "2c3557ef29bfc8aade8eadeaba516d80c80a7e79d50cf48fab7cf6f6433ec165"
+  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.21.1.tar.gz"
+  sha256 "4dcfd26ae30c6e1c0cd304ade4bf402b4dcb7dffec5d87efe33a9ad5282ee866"
   license all_of: ["MIT", "Apache-2.0"]
 
   on_macos do
