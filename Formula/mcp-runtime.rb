@@ -1,8 +1,8 @@
 class McpRuntime < Formula
   desc "Native, policy-enforced MCP host for polyglot developer tools"
   homepage "https://github.com/maelys-dev/mcp-runtime"
-  url "https://github.com/maelys-dev/mcp-runtime/archive/refs/tags/v1.1.0.tar.gz"
-  sha256 "428ee8c231604eb2d96b3760f5772c03c190fba2b4ea65c3ec22c535314e0f57"
+  url "https://github.com/maelys-dev/mcp-runtime/archive/refs/tags/v1.1.1.tar.gz"
+  sha256 "199eda54a362070ce7666cfa5d8c3a5d64d6448bc6d0f42867946e4fd25096da"
   license "MIT"
 
   depends_on "pkg-config" => :build
