@@ -15,8 +15,8 @@ class MaelysWarden < Formula
   end
 
   resource "maelys-netd" do
-    url "https://github.com/maelys-dev/maelys-netd/archive/refs/tags/v0.7.0.tar.gz"
-    sha256 "3f9dd708f71dcb1042d8825d70084370f32c0989fa0713da3a5a38f76d7570b8"
+    url "https://github.com/maelys-dev/maelys-netd/archive/refs/tags/v0.8.0.tar.gz"
+    sha256 "e96ccd8892a72c4ce38f91147aa00c5af0a333849b10527b9bb04c341a237191"
   end
 
   resource "maelys-system" do
