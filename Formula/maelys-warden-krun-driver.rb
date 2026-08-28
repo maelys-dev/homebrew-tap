@@ -3,9 +3,9 @@ require "json"
 class MaelysWardenKrunDriver < Formula
   desc "Optional libkrun microVM driver for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.27.0/maelys-warden-krun-driver-0.27.0-macos-arm64.tar.gz"
-  version "0.27.0"
-  sha256 "6422de89698d0496f2523f0f355dbe152daf1727dc72909f1b0fa7de87db6673"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.29.0/maelys-warden-krun-driver-0.29.0-macos-arm64.tar.gz"
+  version "0.29.0"
+  sha256 "ef06d8dbc4249de62dca575fea7017d0e9076475ad2d8a3e7c8343e6ee9c131d"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
