@@ -12,9 +12,9 @@ class MaelysWardenLibkrun < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.27.0"
-    sha256 cellar: :any, arm64_sequoia: "a0dc37f25b8ae16ada4cb12f294cee99f14f377bee962aac8843f2ebbc82774d"
-    sha256 cellar: :any, arm64_tahoe:   "50b84f2cd96dcac5fe685d8070407ff3eb1e4b8c0f2c1a6d668e2209ac7bc05d"
+    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.29.0"
+    sha256 cellar: :any, arm64_sequoia: "959476662cda2e828b9f55967ba21e8df058d27ba06077dd3d4ad117b512669b"
+    sha256 cellar: :any, arm64_tahoe:   "e4e5ed37521f638df7f7da37a17cec21c2c2d0b0828b75343ee7ecb381485de4"
   end
 
   keg_only "warden loads this private runtime through its dedicated opt path"
@@ -55,8 +55,17 @@ class MaelysWardenLibkrun < Formula
     (testpath/"test.c").write <<~EOS
       #include <libkrun.h>
       int main(void) {
+        static const unsigned char init[] = {0x7f, 'E', 'L', 'F'};
+        if (krun_has_feature(KRUN_FEATURE_BLK) != 1 ||
+            krun_has_feature(KRUN_FEATURE_INIT_BLOB) != 0) return 2;
         int context = krun_create_ctx();
         if (context < 0) return 1;
+        if (krun_disable_implicit_init((unsigned int)context) < 0) return 3;
+        if (krun_add_virtiofs4((unsigned int)context, "/dev/root", 0, 0,
+                               false, KRUN_SEMANTICS_LINUX_COMPLETE) < 0) return 4;
+        if (krun_fs_add_overlay_file((unsigned int)context, "/dev/root",
+                                     "init.krun", init, sizeof(init),
+                                     0100755, true) < 0) return 5;
         return krun_free_ctx((unsigned int)context) < 0;
       }
     EOS
