@@ -3,18 +3,18 @@ require "json"
 class MaelysWardenKrunDriver < Formula
   desc "Optional libkrun microVM driver for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.25.0/maelys-warden-krun-driver-0.25.0-macos-arm64.tar.gz"
-  version "0.25.0"
-  sha256 "ab7cacec5b7d2b86b43b5642d486dc04a186a0dda383dda97eacdfbe6de9a867"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.26.0/maelys-warden-krun-driver-0.26.0-macos-arm64.tar.gz"
+  version "0.26.0"
+  sha256 "d848af6da6a1bdcc5976118cff73a525064ad2246a2d26128299f0557daa3c5d"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
   depends_on "e2fsprogs"
   depends_on "jansson"
   depends_on "libarchive"
-  depends_on "libkrun/krun/libkrun"
   depends_on macos: :sequoia
   depends_on "maelys-dev/tap/maelys-warden"
+  depends_on "maelys-dev/tap/maelys-warden-libkrun"
 
   def install
     libexec.install "usr/local/libexec/maelys-warden-krun-driver"
@@ -30,11 +30,10 @@ class MaelysWardenKrunDriver < Formula
   def caveats
     <<~EOS
       This is a private optional Warden driver, not a standalone CLI. It uses
-      the libkrun/krun tap's libkrun and libkrunfw packages and requires Apple
-      Hypervisor support. Warden advertises it only for the proven K5 subset:
-      sealed Linux/arm64 OCI roots, network:none, and trusted workspace views.
-      Mediated networking and portable filesystem rules remain fail-closed
-      until their separate K7 and K6 candidates are delivered.
+      Warden's headless libkrun package and the upstream libkrunfw firmware.
+      It requires Apple Hypervisor support. The headless runtime deliberately
+      omits libepoxy, virglrenderer and MoltenVK; install the official upstream
+      libkrun formula separately only when another application needs graphics.
 
       Before installation, explicitly authorize the upstream dependency tap:
         brew tap libkrun/krun
@@ -50,7 +49,7 @@ class MaelysWardenKrunDriver < Formula
     driver = libexec/"maelys-warden-krun-driver"
     materializer = libexec/"maelys-warden-oci-materializer"
     system "codesign", "--verify", "--strict", driver
-    assert_match "/opt/homebrew/opt/libkrun/lib/libkrun.1.dylib",
+    assert_match "/opt/homebrew/opt/maelys-warden-libkrun/lib/libkrun.1.dylib",
                  shell_output("otool -L #{driver}")
     assert_match "/opt/homebrew/opt/libkrunfw/lib/libkrunfw.5.dylib",
                  shell_output("otool -L #{driver}")
@@ -60,6 +59,8 @@ class MaelysWardenKrunDriver < Formula
       (share/"doc/maelys-warden-krun-driver/requirements.json").read,
     )
     assert_equal "1.19.4", requirements["libkrunVersion"]
+    assert_equal "warden-headless", requirements["runtimeVariant"]
+    assert_equal "blk", requirements["libkrunFeatures"]
     assert_equal false, requirements["tsi"]
   end
 end
