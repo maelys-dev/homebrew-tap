@@ -3,9 +3,9 @@ require "json"
 class MaelysWardenOciTools < Formula
   desc "Shared OCI materializer and guest runtime for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.33.0/maelys-warden-oci-tools-0.33.0-macos-arm64.tar.gz"
-  version "0.33.0"
-  sha256 "b64e2858760f7287ec0159a2ba8150835c07d59d617431d41f41a973f447d558"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.35.0/maelys-warden-oci-tools-0.35.0-macos-arm64.tar.gz"
+  version "0.35.0"
+  sha256 "c17b07b73281525e746c3d04f76c616d76ef3f988854f3a055d6b256913b8f62"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
@@ -32,7 +32,7 @@ class MaelysWardenOciTools < Formula
       (share/"doc/maelys-warden-oci-tools/requirements.json").read,
     )
     assert_equal "maelys.warden.oci-tools/v1", requirements["schema"]
-    assert_equal "MI/3", requirements["guestProtocol"]
+    assert_equal "MI/5", requirements["guestProtocol"]
     assert_predicate libexec/"maelys-warden/guest/linux-arm64/maelys-init",
                      :executable?
   end
