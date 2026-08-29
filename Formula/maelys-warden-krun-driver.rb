@@ -4,9 +4,9 @@ require "digest"
 class MaelysWardenKrunDriver < Formula
   desc "Optional libkrun microVM driver for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.33.0/maelys-warden-krun-driver-0.33.0-macos-arm64.tar.gz"
-  version "0.33.0"
-  sha256 "f9bbf58c16ac4e5df33fb6b9c2ba6d9db9482c6e782dbd454e42c5c6070c33f0"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.35.0/maelys-warden-krun-driver-0.35.0-macos-arm64.tar.gz"
+  version "0.35.0"
+  sha256 "0680ff725f53b4fe3d2fc9c85757850d37398ad6f5826611125401459182ca0d"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
@@ -26,18 +26,10 @@ class MaelysWardenKrunDriver < Formula
   def caveats
     <<~EOS
       This is a private optional Warden driver, not a standalone CLI. It uses
-      Warden's headless libkrun package and the upstream libkrunfw firmware.
-      It requires Apple Hypervisor support. The headless runtime deliberately
-      omits libepoxy, virglrenderer and MoltenVK; install the official upstream
-      libkrun formula separately only when another application needs graphics.
-
-      Before installation, explicitly authorize the upstream dependency tap:
-        brew tap libkrun/krun
-        brew trust libkrun/krun
-
-      On macOS Tahoe, install the checksum-pinned firmware source first while
-      the upstream 5.5.0 bottle metadata is broken:
-        brew install --build-from-source libkrun/krun/libkrunfw
+      Warden's external-kernel-only headless libkrun package. It requires Apple
+      Hypervisor support and deliberately omits libkrunfw, libepoxy,
+      virglrenderer and MoltenVK. Install the official upstream libkrun formula
+      separately only when another application needs its firmware or graphics.
     EOS
   end
 
@@ -48,17 +40,17 @@ class MaelysWardenKrunDriver < Formula
     system "codesign", "--verify", "--strict", driver
     assert_match "/opt/homebrew/opt/maelys-warden-libkrun/lib/libkrun.1.dylib",
                  shell_output("otool -L #{driver}")
-    assert_match "/opt/homebrew/opt/libkrunfw/lib/libkrunfw.5.dylib",
-                 shell_output("otool -L #{driver}")
+    refute_match "libkrunfw", shell_output("otool -L #{driver}")
     system "sh", "-c", "#{driver} --probe --proof-fd 3 3>/dev/null"
     assert_match "usage:", shell_output("#{materializer} 2>&1", 64)
     requirements = JSON.parse(
       (share/"doc/maelys-warden-krun-driver/requirements.json").read,
     )
-    assert_equal "maelys.warden.krun-driver/v3", requirements["schema"]
+    assert_equal "maelys.warden.krun-driver/v4", requirements["schema"]
     assert_equal "1.19.4", requirements["libkrunVersion"]
     assert_equal "warden-headless", requirements["runtimeVariant"]
-    assert_equal "blk", requirements["libkrunFeatures"]
+    assert_equal "blk,external-kernel-only", requirements["libkrunFeatures"]
+    assert_equal "MI/5", requirements["guestProtocol"]
     assert_equal false, requirements["tsi"]
     assert_equal requirements["materializerSha256"],
                  Digest::SHA256.file(materializer).hexdigest
