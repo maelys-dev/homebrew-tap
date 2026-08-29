@@ -1,27 +1,22 @@
 require "json"
+require "digest"
 
 class MaelysWardenKrunDriver < Formula
   desc "Optional libkrun microVM driver for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.30.0/maelys-warden-krun-driver-0.30.0-macos-arm64.tar.gz"
-  version "0.30.0"
-  sha256 "611643b21e232462d4046e11b83cb2f1d63966d822f7011429eefb90e5282d3d"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.31.0/maelys-warden-krun-driver-0.31.0-macos-arm64.tar.gz"
+  version "0.31.0"
+  sha256 "e793ade57fedbea0f08e2dc9ea5cdd842235525452b7a402a7824b215bbfa3ae"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
-  depends_on "e2fsprogs"
-  depends_on "jansson"
-  depends_on "libarchive"
   depends_on macos: :sequoia
   depends_on "maelys-dev/tap/maelys-warden"
   depends_on "maelys-dev/tap/maelys-warden-libkrun"
+  depends_on "maelys-dev/tap/maelys-warden-oci-tools"
 
   def install
     libexec.install "usr/local/libexec/maelys-warden-krun-driver"
-    libexec.install "usr/local/libexec/maelys-warden-oci-materializer"
-    (libexec/"maelys-warden/guest/linux-arm64").install(
-      Dir["usr/local/libexec/maelys-warden/guest/linux-arm64/*"],
-    )
     (share/"doc/maelys-warden-krun-driver").install(
       Dir["usr/local/share/doc/maelys-warden-krun-driver/*"],
     )
@@ -47,7 +42,8 @@ class MaelysWardenKrunDriver < Formula
 
   test do
     driver = libexec/"maelys-warden-krun-driver"
-    materializer = libexec/"maelys-warden-oci-materializer"
+    materializer = formula_opt_libexec("maelys-dev/tap/maelys-warden-oci-tools")/
+                   "maelys-warden-oci-materializer"
     system "codesign", "--verify", "--strict", driver
     assert_match "/opt/homebrew/opt/maelys-warden-libkrun/lib/libkrun.1.dylib",
                  shell_output("otool -L #{driver}")
@@ -62,5 +58,11 @@ class MaelysWardenKrunDriver < Formula
     assert_equal "warden-headless", requirements["runtimeVariant"]
     assert_equal "blk", requirements["libkrunFeatures"]
     assert_equal false, requirements["tsi"]
+    assert_equal requirements["materializerSha256"],
+                 Digest::SHA256.file(materializer).hexdigest
+    guest_manifest = formula_opt_libexec("maelys-dev/tap/maelys-warden-oci-tools")/
+                     "maelys-warden/guest/linux-arm64/manifest.json"
+    assert_equal requirements["guestBundleManifestSha256"],
+                 Digest::SHA256.file(guest_manifest).hexdigest
   end
 end
