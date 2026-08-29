@@ -12,9 +12,9 @@ class MaelysWardenLibkrun < Formula
   license "Apache-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.31.0"
-    sha256 cellar: :any, arm64_sequoia: "abe4ba68564987a4cf2ccf3a254daad6e87a7a9cbe3f5abfbd4347fb54a9719f"
-    sha256 cellar: :any, arm64_tahoe:   "7eea915cf1490231e959165372f8fe17de35e67ce87c5c34a38ad2180576ad6f"
+    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.32.0"
+    sha256 cellar: :any, arm64_sequoia: "61d50fdcbf12f64d359fafc1ceca8ba4a2eb2689efe4675c3014036f99079351"
+    sha256 cellar: :any, arm64_tahoe:   "737d1b84b31670fa89b66c677caf67bb1ad736725ac717799ab656c0ae821d4e"
   end
 
   keg_only "warden loads this private runtime through its dedicated opt path"
