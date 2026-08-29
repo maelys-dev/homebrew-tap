@@ -4,9 +4,9 @@ require "digest"
 class MaelysWardenContainerizationDriver < Formula
   desc "Direct Apple Containerization backend for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.33.0/maelys-warden-containerization-driver-0.33.0-macos-arm64.tar.gz"
-  version "0.33.0"
-  sha256 "b49265e4d9ed0f292481cd33aaa53fde6d83f1d3fa8b1265d79b9c9e26f6a157"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.35.0/maelys-warden-containerization-driver-0.35.0-macos-arm64.tar.gz"
+  version "0.35.0"
+  sha256 "c82d3e32cb6f235129f4d0083b20854cdf8a73345f29131ac2f0502084da2028"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
@@ -36,7 +36,7 @@ class MaelysWardenContainerizationDriver < Formula
       (share/"doc/maelys-warden-containerization-driver/requirements.json").read,
     )
     assert_equal "0.41.0", requirements["containerizationVersion"]
-    assert_equal "MI/3", requirements["guestProtocol"]
+    assert_equal "MI/5", requirements["guestProtocol"]
     init = formula_opt_libexec("maelys-dev/tap/maelys-warden-oci-tools")/
            "maelys-warden/guest/linux-arm64/maelys-init"
     assert_predicate init, :executable?
