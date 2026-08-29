@@ -4,14 +4,15 @@ require "digest"
 class MaelysWardenKrunDriver < Formula
   desc "Optional libkrun microVM driver for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.32.0/maelys-warden-krun-driver-0.32.0-macos-arm64.tar.gz"
-  version "0.32.0"
-  sha256 "7faba9ae98e8822a900d8c1865abd47e0dc772a9089af14135d0166d028cb47f"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.33.0/maelys-warden-krun-driver-0.33.0-macos-arm64.tar.gz"
+  version "0.33.0"
+  sha256 "f9bbf58c16ac4e5df33fb6b9c2ba6d9db9482c6e782dbd454e42c5c6070c33f0"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
   depends_on macos: :sequoia
   depends_on "maelys-dev/tap/maelys-warden"
+  depends_on "maelys-dev/tap/maelys-warden-guest-kernel"
   depends_on "maelys-dev/tap/maelys-warden-libkrun"
   depends_on "maelys-dev/tap/maelys-warden-oci-tools"
 
@@ -54,6 +55,7 @@ class MaelysWardenKrunDriver < Formula
     requirements = JSON.parse(
       (share/"doc/maelys-warden-krun-driver/requirements.json").read,
     )
+    assert_equal "maelys.warden.krun-driver/v3", requirements["schema"]
     assert_equal "1.19.4", requirements["libkrunVersion"]
     assert_equal "warden-headless", requirements["runtimeVariant"]
     assert_equal "blk", requirements["libkrunFeatures"]
@@ -64,5 +66,9 @@ class MaelysWardenKrunDriver < Formula
                      "maelys-warden/guest/linux-arm64/manifest.json"
     assert_equal requirements["guestBundleManifestSha256"],
                  Digest::SHA256.file(guest_manifest).hexdigest
+    kernel_manifest = Formula["maelys-dev/tap/maelys-warden-guest-kernel"].opt_share/
+                      "maelys-warden/guest/manifest.json"
+    assert_equal requirements["guestKernelManifestSha256"],
+                 Digest::SHA256.file(kernel_manifest).hexdigest
   end
 end
