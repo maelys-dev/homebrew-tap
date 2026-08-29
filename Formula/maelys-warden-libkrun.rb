@@ -10,11 +10,12 @@ class MaelysWardenLibkrun < Formula
   url "https://github.com/containers/libkrun/archive/refs/tags/v1.19.4.tar.gz"
   sha256 "e8775fab2b460972a67ca6cd936296bb79cdb078d852d712a283cb290dd0b284"
   license "Apache-2.0"
+  revision 1
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.33.0"
-    sha256 cellar: :any, arm64_sequoia: "79dafe3f83cbebb2091e110688349e0934e5a28026436519f9b5fb9b19a3b80e"
-    sha256 cellar: :any, arm64_tahoe:   "dbb47211d71dc8d8cf676374b1cf59920d50aeebb0a4f2985e74ae6d7e4a28e0"
+    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.35.0"
+    sha256 cellar: :any, arm64_sequoia: "a3a2d94ecf9472bc464dd397c8fa440d68bf106e0e349fd2720c9eb24ee015c1"
+    sha256 cellar: :any, arm64_tahoe:   "0b80745e219a71aa799898584f2bcd5be5912bd98f2db235658ef51128afc162"
   end
 
   keg_only "warden loads this private runtime through its dedicated opt path"
@@ -22,14 +23,18 @@ class MaelysWardenLibkrun < Formula
   depends_on "dtc" => :build
   depends_on "rust" => :build
   depends_on arch: :arm64
-  depends_on "libkrun/krun/libkrunfw"
   depends_on macos: :sequoia
 
+  patch do
+    url "https://raw.githubusercontent.com/maelys-dev/maelys-warden/3fd103d30a4d3158f36f4607353744ba21e816eb/packaging/patches/libkrun-1.19.4-external-kernel-only.patch"
+    sha256 "f745fa51525ffc3b1b8cdc218384c244c51f207971fe19fc0faad32de6c06b1f"
+  end
+
   def install
-    # Warden supplies its own init in the sealed ext4 root and uses vsock for
-    # networking. Build only block support, not the whole Cargo workspace.
+    # Warden always supplies its sealed raw kernel. The downstream feature
+    # removes libkrunfw loading and fails closed if no external kernel exists.
     system formula_opt_bin("rust")/"cargo", "build", "--locked", "--release", "--package", "libkrun",
-           "--no-default-features", "--features", "blk"
+           "--no-default-features", "--features", "blk,external-kernel-only"
     # Cargo leaves target/release/libkrun.dylib as a symlink into deps/.  Move
     # the real file into the Cellar so the installed aliases cannot dangle.
     dylib = (buildpath/"target/release/libkrun.dylib").realpath
@@ -75,5 +80,6 @@ class MaelysWardenLibkrun < Formula
     refute_match "libepoxy", linked
     refute_match "virglrenderer", linked
     refute_match "MoltenVK", linked
+    refute_match "libkrunfw", shell_output("strings #{lib}/libkrun.1.dylib")
   end
 end
