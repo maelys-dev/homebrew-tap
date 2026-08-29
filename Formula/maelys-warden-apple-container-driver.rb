@@ -3,9 +3,9 @@ require "json"
 class MaelysWardenAppleContainerDriver < Formula
   desc "Optional Apple Container backend for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.32.0/maelys-warden-apple-container-driver-0.32.0-macos-arm64.tar.gz"
-  version "0.32.0"
-  sha256 "d276faa5dc7134f3719b62a48537bac0270aea981e779e816ea83c6a19ced986"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.33.0/maelys-warden-apple-container-driver-0.33.0-macos-arm64.tar.gz"
+  version "0.33.0"
+  sha256 "c426a8d4e13e4c3d427d854b8e68f3bb40fb6d5c4bac3f0d798eb940678732bc"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
