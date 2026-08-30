@@ -4,9 +4,9 @@ require "digest"
 class MaelysWardenKrunDriver < Formula
   desc "Optional libkrun microVM driver for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.39.0/maelys-warden-krun-driver-0.39.0-macos-arm64.tar.gz"
-  version "0.39.0"
-  sha256 "d45c5732d23ebcead9a6ed8d1b0f0fef3784b7887912f51285c3a1dce701e78a"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.39.1/maelys-warden-krun-driver-0.39.1-macos-arm64.tar.gz"
+  version "0.39.1"
+  sha256 "543fc2a3a178dfd6917a986b3d47d6eee9996313fceeb39922951caed02aa260"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
