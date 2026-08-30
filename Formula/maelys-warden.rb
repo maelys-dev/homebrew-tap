@@ -4,15 +4,15 @@
 class MaelysWarden < Formula
   desc "Run commands through portable sandbox policy; includes the C SDK"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.38.1.tar.gz"
-  version "0.38.1"
-  sha256 "fc7b66632e383bd5e1fc086bf89a238f4073cae6e73c9a05ea68f63f21e912af"
+  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.39.0.tar.gz"
+  version "0.39.0"
+  sha256 "e18a5da22b59ba2f028bdefb9e9ff2ce4c79fd08252b57f36bfe783c027cb5df"
   license all_of: ["MIT", "Apache-2.0"]
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.38.1"
-    sha256 cellar: :any, arm64_sequoia: "7868dc87da8e455a0581ffc3d51a72ab1c1675db892ef11b8982425b244377ec"
-    sha256 cellar: :any, arm64_tahoe:   "22de8833a72c1c3d8af9f8c5a502d979e2ffb57bba894de6764e49243acb8ce1"
+    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.39.0"
+    sha256 cellar: :any, arm64_sequoia: "537fac7ce5f7a39622c1ca2a2138e677273eedd41a9a530e907cffd2e7191560"
+    sha256 cellar: :any, arm64_tahoe:   "c26125f1307fa82e094cd754c47577eaf82ae2f52da45f7f6074972305989150"
   end
 
   on_macos do
@@ -25,8 +25,8 @@ class MaelysWarden < Formula
   end
 
   resource "maelys-egress" do
-    url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.9.0.tar.gz"
-    sha256 "a55d6e1854881fe39cb0ccb883a3a9afa57ca5ca80f2bbdc62094cbd2d659791"
+    url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.10.0.tar.gz"
+    sha256 "9c7c8965d52e7c4a07204177799cebbb7de9b95c7e951019274fb2204aa68cb0"
   end
 
   resource "maelys-system" do
@@ -60,7 +60,7 @@ class MaelysWarden < Formula
     (testpath/"smoke.c").write <<~EOS
       #include <maelys/warden.h>
       int main(void) {
-        return MAELYS_WARDEN_ABI_VERSION == 6u ? 0 : 1;
+        return MAELYS_WARDEN_ABI_VERSION == 7u ? 0 : 1;
       }
     EOS
     system ENV.cc, "smoke.c", "-I#{include}", "-L#{lib}",
