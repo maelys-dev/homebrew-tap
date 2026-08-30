@@ -3,9 +3,9 @@ require "json"
 class MaelysWardenOciTools < Formula
   desc "Shared OCI materializer and guest runtime for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.36.0/maelys-warden-oci-tools-0.36.0-macos-arm64.tar.gz"
-  version "0.36.0"
-  sha256 "e84383081740e349f1b01273621b517ef2b9b4d67853f4479dbf65fb212a82ba"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.37.0/maelys-warden-oci-tools-0.37.0-macos-arm64.tar.gz"
+  version "0.37.0"
+  sha256 "7fa28e9a148804461b99220937d2c5df8282ffef4cea1fd14807ec24eb092e7c"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64

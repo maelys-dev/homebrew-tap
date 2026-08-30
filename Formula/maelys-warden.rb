@@ -4,15 +4,15 @@
 class MaelysWarden < Formula
   desc "Run commands through portable sandbox policy; includes the C SDK"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.36.0.tar.gz"
-  version "0.36.0"
-  sha256 "69b093e02a059a32288729e49c8e369e45500e61bb39a8f97f54de27628efb70"
+  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.37.0.tar.gz"
+  version "0.37.0"
+  sha256 "b5022d32b70cee2250061ba3a6d4ab953f69595b38bb5b6624efe9079e2916a9"
   license all_of: ["MIT", "Apache-2.0"]
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.36.0"
-    sha256 cellar: :any, arm64_sequoia: "38bb334f16103373e3ab1ae50480d167921c99afa676c57e49954b1ad5e25e91"
-    sha256 cellar: :any, arm64_tahoe:   "1d0ea7834a4b54bc148468e8b7565d81e23dcaf3b58a176a0b78774e12ea4340"
+    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.37.0"
+    sha256 cellar: :any, arm64_sequoia: "bbc90947929cae991cc9860d2bbfc9f0b5a5a09ef3d1d02401ff83c13d068c7d"
+    sha256 cellar: :any, arm64_tahoe:   "6f2d6b0ba6e974a4a6fa72ca225b333422bbad174b0fd6a3a8581e763015cde3"
   end
 
   on_macos do
@@ -24,9 +24,9 @@ class MaelysWarden < Formula
     sha256 "f22165ed16566f328cb06b3f1540ef23d074b8319361fb2240dace9b55ccc0f9"
   end
 
-  resource "maelys-netd" do
-    url "https://github.com/maelys-dev/maelys-netd/archive/refs/tags/v0.8.0.tar.gz"
-    sha256 "e96ccd8892a72c4ce38f91147aa00c5af0a333849b10527b9bb04c341a237191"
+  resource "maelys-egress" do
+    url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.9.0.tar.gz"
+    sha256 "a55d6e1854881fe39cb0ccb883a3a9afa57ca5ca80f2bbdc62094cbd2d659791"
   end
 
   resource "maelys-system" do
@@ -40,19 +40,19 @@ class MaelysWarden < Formula
     # Homebrew exports parallel MAKEFLAGS, so serialize this multi-goal make.
     ENV.deparallelize
     sandbox = buildpath/"vendor/maelys-sandbox-policy"
-    netd = buildpath/"vendor/maelys-netd"
+    egress = buildpath/"vendor/maelys-egress"
     system = buildpath/"vendor/maelys-system"
     resource("maelys-sandbox-policy").stage sandbox
-    resource("maelys-netd").stage netd
+    resource("maelys-egress").stage egress
     resource("maelys-system").stage system
     system "make", "-C", sandbox, "install", "PREFIX=#{prefix}"
-    system "make", "-C", netd, "install", "PREFIX=#{prefix}",
+    system "make", "-C", egress, "install", "PREFIX=#{prefix}",
            "MAELYS_SYSTEM_DIR=#{system}"
     system "make", "install", "install-cli", "install-warden-policy-adapter",
-           "install-netd-adapter", "install-warden", "install-examples",
+           "install-egress-adapter", "install-warden", "install-examples",
            "install-sdks", "PREFIX=#{prefix}",
            "MAELYS_SANDBOX_POLICY_DIR=#{sandbox}", "MAELYS_SANDBOX_POLICY_PINNED_ARCHIVE=1",
-           "MAELYS_NETD_DIR=#{netd}", "MAELYS_NETD_PINNED_ARCHIVE=1",
+           "MAELYS_EGRESS_DIR=#{egress}", "MAELYS_EGRESS_PINNED_ARCHIVE=1",
            "MAELYS_SYSTEM_DIR=#{system}", "MAELYS_SYSTEM_PINNED_ARCHIVE=1"
   end
 
@@ -60,13 +60,13 @@ class MaelysWarden < Formula
     (testpath/"smoke.c").write <<~EOS
       #include <maelys/warden.h>
       int main(void) {
-        return MAELYS_WARDEN_ABI_VERSION == 4u ? 0 : 1;
+        return MAELYS_WARDEN_ABI_VERSION == 5u ? 0 : 1;
       }
     EOS
     system ENV.cc, "smoke.c", "-I#{include}", "-L#{lib}",
            "-lmaelys-warden", "-lmaelys-warden-policy-adapter",
-           "-lmaelys_executor_netd_adapter", "-lmaelys_executor",
-           "-lmaelys_netd", "-lmaelys-sandbox-policy", "-lmaelys-mir",
+           "-lmaelys_executor_egress_adapter", "-lmaelys_executor",
+           "-lmaelys_egress", "-lmaelys-sandbox-policy", "-lmaelys-mir",
            "-lmaelys_sys", "-pthread", "-o", "smoke"
     system "./smoke"
     assert_equal version.to_s, shell_output("#{bin}/maelys-warden --version").strip

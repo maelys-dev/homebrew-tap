@@ -3,9 +3,9 @@ require "json"
 class MaelysWardenGuestKernel < Formula
   desc "Pinned Linux guest kernel for Maelys Warden VM backends"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.36.0/maelys-warden-guest-kernel-0.36.0-linux-arm64.tar.gz"
-  version "0.36.0"
-  sha256 "bc0fdbbd14e7ef590448f44984658588ef7fc92da08f98984a90287e737976eb"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.37.0/maelys-warden-guest-kernel-0.37.0-linux-arm64.tar.gz"
+  version "0.37.0"
+  sha256 "01e602895570cdd709d00548249be2b6308c6ad16cc7df087bf11168fced806a"
   license "GPL-2.0-only"
 
   depends_on arch: :arm64
