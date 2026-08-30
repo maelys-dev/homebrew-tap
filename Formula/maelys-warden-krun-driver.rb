@@ -4,9 +4,9 @@ require "digest"
 class MaelysWardenKrunDriver < Formula
   desc "Optional libkrun microVM driver for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.37.0/maelys-warden-krun-driver-0.37.0-macos-arm64.tar.gz"
-  version "0.37.0"
-  sha256 "2aac24dca13a6d2a6865ee6f16507c9236bb27786f779089e98a4cd7d2f9509a"
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.38.0/maelys-warden-krun-driver-0.38.0-macos-arm64.tar.gz"
+  version "0.38.0"
+  sha256 "5055b9fb05b9cbe8c9d704e8f43e966302e5b563a64fbf394f268eac2e95f388"
   license all_of: ["MIT", "Apache-2.0"]
 
   depends_on arch: :arm64
@@ -50,7 +50,7 @@ class MaelysWardenKrunDriver < Formula
     assert_equal "1.19.4", requirements["libkrunVersion"]
     assert_equal "warden-headless", requirements["runtimeVariant"]
     assert_equal "blk,external-kernel-only", requirements["libkrunFeatures"]
-    assert_equal "MI/5", requirements["guestProtocol"]
+    assert_equal "MI/6", requirements["guestProtocol"]
     assert_equal false, requirements["tsi"]
     assert_equal requirements["materializerSha256"],
                  Digest::SHA256.file(materializer).hexdigest
