@@ -4,14 +4,15 @@
 class MaelysWarden < Formula
   desc "Run commands through portable sandbox policy; includes the C SDK"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.35.0.tar.gz"
-  sha256 "dd7e3fd8cbb8550a0f6648d7547442e4b365e9e8288c9818a8fcac67b3eca036"
+  url "https://github.com/maelys-dev/maelys-warden/archive/refs/tags/v0.36.0.tar.gz"
+  version "0.36.0"
+  sha256 "69b093e02a059a32288729e49c8e369e45500e61bb39a8f97f54de27628efb70"
   license all_of: ["MIT", "Apache-2.0"]
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.35.0"
-    sha256 cellar: :any, arm64_sequoia: "dce677dfedd4d7f148a4a5685846c416fbaca79f892e60d9e0482aba45ed75c2"
-    sha256 cellar: :any, arm64_tahoe:   "865cd2736594b7eb9fb7ea1ad50e4c84586f87c98d20e088e4b5d98eb8db2613"
+    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.36.0"
+    sha256 cellar: :any, arm64_sequoia: "38bb334f16103373e3ab1ae50480d167921c99afa676c57e49954b1ad5e25e91"
+    sha256 cellar: :any, arm64_tahoe:   "1d0ea7834a4b54bc148468e8b7565d81e23dcaf3b58a176a0b78774e12ea4340"
   end
 
   on_macos do
