@@ -13,9 +13,9 @@ class MaelysWardenLibkrun < Formula
   revision 1
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.41.0"
-    sha256 cellar: :any, arm64_sequoia: "1ac3ce6ffe960011ab7c928a8ddb50626538a31f543fef3497a8d9ae32854458"
-    sha256 cellar: :any, arm64_tahoe:   "f4521ba927f7d92ce818e35d24c150d0a9daaf7b880a10d723a587552e1d4caa"
+    root_url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.42.0"
+    sha256 cellar: :any, arm64_sequoia: "51bc0e4e4a69331a745e0de7f1747eebfa73077470ae82474e79756af6d38e14"
+    sha256 cellar: :any, arm64_tahoe:   "a04ec1b7cd9728532b1051459341cb3eee698f89e6679d4061182cc9fa36ab35"
   end
 
   keg_only "warden loads this private runtime through its dedicated opt path"
@@ -26,7 +26,7 @@ class MaelysWardenLibkrun < Formula
   depends_on macos: :sequoia
 
   patch do
-    url "https://raw.githubusercontent.com/maelys-dev/maelys-warden/85ec9da6d85601f2da5dff6673e5782250a3238b/packaging/patches/libkrun-1.19.4-external-kernel-only.patch"
+    url "https://raw.githubusercontent.com/maelys-dev/maelys-warden/e6041fecc54e28c2ebd0ad3fda2b7f70c6af976f/packaging/patches/libkrun-1.19.4-external-kernel-only.patch"
     sha256 "f745fa51525ffc3b1b8cdc218384c244c51f207971fe19fc0faad32de6c06b1f"
   end
 
