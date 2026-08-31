@@ -4,10 +4,10 @@ require "digest"
 class MaelysWardenContainerizationDriver < Formula
   desc "Direct Apple Containerization backend for Maelys Warden"
   homepage "https://warden.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.42.0/maelys-warden-containerization-driver-0.42.0-macos-arm64.tar.gz"
-  version "0.42.0"
-  sha256 "7a49e3a0b1e0806b7f392f2bd33ad9ed9858e244bd9cecb3ff3417a6749ce612"
-  license all_of: ["MIT", "Apache-2.0"]
+  url "https://github.com/maelys-dev/maelys-warden/releases/download/v0.43.0/maelys-warden-containerization-driver-0.43.0-macos-arm64.tar.gz"
+  version "0.43.0"
+  sha256 "a1155f58916330e4923cc63e2b5c6ffdc3cdab787eae6abca5ca5e8724ad7904"
+  license all_of: ["MPL-2.0", "Apache-2.0"]
 
   depends_on arch: :arm64
   depends_on macos: :tahoe
