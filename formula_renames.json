@@ -1,3 +1,4 @@
 {
+  "maelys-executor": "maelys-warden",
   "mcp-runtime": "maelys-mcp"
 }
