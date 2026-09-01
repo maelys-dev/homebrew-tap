@@ -12,9 +12,9 @@ class MaelysWardenOciTools < Formula
   depends_on "e2fsprogs"
   depends_on "jansson"
   depends_on "libarchive"
+  depends_on "mbedtls"
   depends_on macos: :sequoia
   depends_on "maelys-dev/tap/maelys-warden"
-  depends_on "mbedtls"
 
   def install
     libexec.install "usr/local/libexec/maelys-warden-oci-materializer"
