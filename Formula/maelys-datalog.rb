@@ -1,9 +1,9 @@
 class MaelysDatalog < Formula
   desc "Bounded deterministic Datalog engine for embedded policy decisions"
   homepage "https://github.com/maelys-dev/maelys-datalog"
-  url "https://github.com/maelys-dev/maelys-datalog/archive/refs/tags/v0.1.0-alpha.1.tar.gz"
-  sha256 "be18f6ef2ce9cf16d90ffb40770bf92cb5d2d00526c72553aaf97689ae55a4c3"
-  license "MIT"
+  url "https://github.com/maelys-dev/maelys-datalog/archive/refs/tags/v0.1.0-alpha.3.tar.gz"
+  sha256 "5467e2b0f742e3b899db991736577c6508bc6bec6801d4cc9bd851ff3d1f68b5"
+  license "MPL-2.0"
 
   def install
     system "make", "libmaelys_datalog.a"
