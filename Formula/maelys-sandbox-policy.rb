@@ -1,9 +1,9 @@
 class MaelysSandboxPolicy < Formula
   desc "Compile portable sandbox decisions into canonical MIR and host plans"
   homepage "https://policy.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-sandbox-policy/archive/refs/tags/v0.3.0.tar.gz"
-  sha256 "3b7ab1a3f7b476e7ce0a6959f506c0fac52c5ccc18e8360581032db88d051bf0"
-  license "MIT"
+  url "https://github.com/maelys-dev/maelys-sandbox-policy/archive/refs/tags/v0.4.1.tar.gz"
+  sha256 "9fd53506a7fbf034fd9555d6623765d873b2029a1a0b120ebcbc2b3e480ba20d"
+  license "MPL-2.0"
 
   def install
     system "make", "install", "PREFIX=#{prefix}"
