@@ -6,14 +6,14 @@
 class Maelys < Formula
   desc "Command that runs every installed Maelys tool under one name"
   homepage "https://github.com/maelys-dev/maelys-cli"
-  url "https://github.com/maelys-dev/maelys-cli/archive/refs/tags/v0.5.9.tar.gz"
-  sha256 "7858122419d9cffc72d0180cdd724b4b272d9c854b91ac724e821c6447105a8a"
+  url "https://github.com/maelys-dev/maelys-cli/archive/refs/tags/v0.5.10.tar.gz"
+  sha256 "d507f41a790aaf685d27b96cf31571fbaa561a42e7aa4682604ab6838a6f9826"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-cli/releases/download/v0.5.9"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "80cf3b2144729fe0c2f42f5032aa60dea0fbb69eb5155a66d698ce4608a97a76"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "be47ae35b4cbbfc6f26c6c622d6cc38ce4dd5ee023eecf6ed37791efa89482e6"
+    root_url "https://github.com/maelys-dev/maelys-cli/releases/download/v0.5.10"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "7e84a6996c30be32efba3e58cccc2a361dd94018748691e36abe9be011aa95c2"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "806dfec25bd8e36a497ebafb69407a42a0d88dd2a811dd9ce2aeaf08e1ed7efb"
   end
 
   depends_on "libmaelys-json" => :build
