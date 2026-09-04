@@ -5,14 +5,14 @@
 class LibmaelysSys < Formula
   desc "Minimal callback-free POSIX systems foundation for C"
   homepage "https://github.com/maelys-dev/maelys-system"
-  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.5.6.tar.gz"
-  sha256 "8276cff648889ef4feba5b4e5f353c414105817a6fa3758872405e5f32b865b0"
+  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.6.0.tar.gz"
+  sha256 "d9f0b4d4afb732c29a08be420a093d000a83794b6f9e3ffd3bbf638a68b2e43f"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.5.6"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "2d5eb4779a5034b639738ea0dcfad7d5f9f04d7873e6457998215b938abb6cfc"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4a19a850fda2ad8e7adeda7d6c80007b10c497a74b7da27e8b244f1475057ca6"
+    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.6.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "fa8712795754f9fb030df3dc1f2e1103d6c535ac3f3f896870de739dfc946e00"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bc30a28a0507ff9634b0b63bdd6578b4676978143d1c3e55011846fc79d502b8"
   end
 
   # maelys-warden still vendors this library and its headers.
