@@ -1,21 +1,21 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.16.0, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.16.0.tar.gz and
-# e79f0f0e7497101653f61b1fb1ebb3147320e7113a0007d58583b27c014467bd are replaced with the released source archive of one tag. The
-# pinned maelys-cli below is copied from adapter/MAELYS_CLI_PIN of that tag
-# by scripts/render-homebrew-formula.sh.
+# Rendered by maelys-release from this template: 0.17.0, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.17.0.tar.gz and
+# b69dd8d4756d14c8b85a9595262f6e853e942410d3f5f312ac671ced8fd03b64 are replaced with the released source archive of one tag. The
+# pinned maelys-cli below is copied from dependencies/maelys-cli.pin of that
+# tag by scripts/render-homebrew-formula.sh.
 class MaelysEgress < Formula
   desc "Policy-enforced HTTP CONNECT and SOCKS5 network mediator in pure C"
   homepage "https://github.com/maelys-dev/maelys-egress"
-  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.16.0.tar.gz"
-  sha256 "e79f0f0e7497101653f61b1fb1ebb3147320e7113a0007d58583b27c014467bd"
+  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.17.0.tar.gz"
+  sha256 "b69dd8d4756d14c8b85a9595262f6e853e942410d3f5f312ac671ced8fd03b64"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.16.0"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f77d7bf58b206d26faeb4467a821915b33207a80102cef3d91dd3dc692158b24"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c72777010807d59dfb6030c42b8cc2047154e4450dcbacee70cd9cd1bf47f9a4"
+    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.17.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "ee313a32b6ec0f951d64c583cbc128e20749037b1216547d141130100280b5a9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f8ca08b5d3ba1d00353a16378f229416785416c32847d1bfb8abac2f0503d5c7"
   end
 
   depends_on "python@3.13" => :build
@@ -23,14 +23,14 @@ class MaelysEgress < Formula
 
   resource "maelys-cli" do
     url "https://github.com/maelys-dev/maelys-cli.git",
-        tag:      "v0.5.11",
-        revision: "e347740560480da1b09f8fee6c028b4f7d1b6c03"
+        tag:      "v0.5.19",
+        revision: "6868bd13cfdccc0cdf59f40174f2bdc76f57bd04"
   end
 
   def install
     # The Makefile verifies the installed Maelys System against the version
-    # recorded in adapter/MAELYS_SYSTEM_PIN and the maelys-cli checkout
-    # against adapter/MAELYS_CLI_PIN, then installs libmaelys_egress, its
+    # recorded in dependencies/maelys-system.pin and the maelys-cli checkout
+    # against dependencies/maelys-cli.pin, then installs libmaelys_egress, its
     # headers, the pkg-config file, the daemon, the documentation and the
     # manifest that registers `maelys egress`.
     ENV.deparallelize
