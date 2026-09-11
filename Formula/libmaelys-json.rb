@@ -5,14 +5,14 @@
 class LibmaelysJson < Formula
   desc "Bounded JSON reader and canonical writer for C, shared by the Maelys tools"
   homepage "https://github.com/maelys-dev/maelys-json"
-  url "https://github.com/maelys-dev/maelys-json/archive/refs/tags/v0.1.6.tar.gz"
-  sha256 "2cb2cc50ea1be13e98b8f8e62e4736341e7bfec6ee62d731762dad71ff4be2a6"
+  url "https://github.com/maelys-dev/maelys-json/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "c0fba9f6159b75861e380e4d2937e02cd1642fa4469f87ee849f1f55397765ac"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-json/releases/download/v0.1.6"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c8e4a2dd64731c7c72512442d4d2d368a0b5a3212b296cb97f64d0e492d6b142"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8e2b70c8870e6df0dae7540acefbfbc086cc7c2c18f088e3816de0097b5f7650"
+    root_url "https://github.com/maelys-dev/maelys-json/releases/download/v0.2.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "e853330366207e6e333a01e91f1b0337b1c47db5d9ccb3807394fc87c20b2ace"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2969d536ece917967f82143872a45b46739eda8808ede74dbf20d9efbd74947f"
   end
 
   def install
