@@ -1,17 +1,24 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.1.13 and e61558e701497d57b44cd8db40f896842e1dc087a2018621948b9fca8f4e0d1b are
-# replaced with the released source archive of one tag, and the pinned Maelys
-# System version in the comment below is copied from
-# dependencies/maelys-system.pin of that tag by
-# scripts/render-homebrew-formula.sh. Nothing here is typed at release time.
+# Rendered by the socle's tap workflow from this template, through
+# scripts/render-homebrew-formula.sh: https://github.com/maelys-dev/maelys-http/releases/download/v0.1.14/maelys-http-0.1.14.tar.gz, 0.1.14 and add0b8f3703d9bf5ec8475df3189f45c5fb53ea822476afcaea3bd428a4560ac name the
+# published source archive of one tag and the digest of those exact bytes,
+# and 0.9.1 in the comment below is copied from
+# dependencies/maelys-system.pin held inside that same archive. Nothing here
+# is typed at release time.
 class LibmaelysHttp < Formula
   desc "Bounded HTTP/1.1 codec and streaming client"
   homepage "https://github.com/maelys-dev/maelys-http"
-  url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.13/maelys-http-0.1.13.tar.gz"
-  sha256 "e61558e701497d57b44cd8db40f896842e1dc087a2018621948b9fca8f4e0d1b"
+  url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.14/maelys-http-0.1.14.tar.gz"
+  sha256 "add0b8f3703d9bf5ec8475df3189f45c5fb53ea822476afcaea3bd428a4560ac"
   license "MPL-2.0"
+
+  bottle do
+    root_url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.14"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c7adcdc0a858f61e25c8b13b6cd86b44c386d0fd0c953c5cf287044dad906576"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "edf4c2b241335617fe734617fa5368d33e50228c03e0b82598945769410f9aac"
+  end
 
   depends_on "libmaelys-sys"
   # Not optional: consumers link libmaelys_http_tls_mbedtls.a, so the provider
