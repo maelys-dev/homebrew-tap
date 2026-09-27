@@ -1,8 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.6.6, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.6.6.tar.gz and
-# 4e5a4f6ab89bc9a509aca99a54e2c906890115693ce28de2029ee8a589151d9f are replaced with the source archive of one tag, v0.5.30 and
+# Rendered by maelys-release from this template: 0.6.7, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.6.7.tar.gz and
+# c3d640a445b3207ced33ab02061f05630ccb6963382a7519a6c3d8096357590d are replaced with the source archive of one tag, v0.5.30 and
 # da330c75c21daf8a03e42227012e20a4f9592549 with dependencies/maelys-cli.pin of that tag, by
 # scripts/render-homebrew-formula.sh. The Maelys libraries are linked into
 # the terminal, so the tap's libmaelys-sys, libmaelys-json and libmaelys-http
@@ -11,14 +11,14 @@
 class MaelysOci < Formula
   desc "Bounded OCI acquisition, canonical materialization and immutable artifact store"
   homepage "https://github.com/maelys-dev/maelys-oci"
-  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.6.6.tar.gz"
-  sha256 "4e5a4f6ab89bc9a509aca99a54e2c906890115693ce28de2029ee8a589151d9f"
+  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.6.7.tar.gz"
+  sha256 "c3d640a445b3207ced33ab02061f05630ccb6963382a7519a6c3d8096357590d"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.6.6"
-    sha256 arm64_tahoe:   "aed2011b5cae42182b122cb27196892e2d158047e20bc0bac86f3260c0dc6939"
-    sha256 arm64_sequoia: "2cede8de57cc457d0a7befe92ff56a76bc0ebeeb97df99e0760969f7fb12597f"
+    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.6.7"
+    sha256 arm64_tahoe:   "ecf3ba43d137331768ccb3d72b55a489db2a9e9ae2a1226f060e662ec67c748f"
+    sha256 arm64_sequoia: "ec3bd42748e211226058072ca4a043c203d660dad61aaf0d25826d2c79a81661"
   end
 
   depends_on "libmaelys-http" => :build
