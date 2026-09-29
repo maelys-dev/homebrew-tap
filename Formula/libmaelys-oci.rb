@@ -1,8 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.7.0, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.7.0.tar.gz and
-# 9dd7f5aced579091b78226b2b5040b96b30848b2f76d1f1afc36fbce42fbb218 are replaced with the source archive of one tag, v0.5.30 and
+# Rendered by maelys-release from this template: 0.7.1, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.7.1.tar.gz and
+# c3236c9751ab469c0ddc57ff262a4b2fec98f2d5dca3db8911e11b3c0ff13081 are replaced with the source archive of one tag, v0.5.30 and
 # da330c75c21daf8a03e42227012e20a4f9592549 with dependencies/maelys-cli.pin of that tag, by
 # scripts/render-homebrew-formula.sh. Maelys System, JSON and HTTP come from
 # the tap's libmaelys-sys, libmaelys-json and libmaelys-http formulas: the
@@ -11,14 +11,14 @@
 class LibmaelysOci < Formula
   desc "Bounded OCI acquisition, canonical materialization and immutable artifact store"
   homepage "https://github.com/maelys-dev/maelys-oci"
-  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.7.0.tar.gz"
-  sha256 "9dd7f5aced579091b78226b2b5040b96b30848b2f76d1f1afc36fbce42fbb218"
+  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.7.1.tar.gz"
+  sha256 "c3236c9751ab469c0ddc57ff262a4b2fec98f2d5dca3db8911e11b3c0ff13081"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.7.0"
-    sha256 arm64_tahoe:   "37fe522180a706652f7d35be0f5676b17c8ce2ba1bb46f8e89110dc6b777ebba"
-    sha256 arm64_sequoia: "b02d336eb7071dd41a2656c086cbe55e17c561faedf2529bf6ca51bccbb45000"
+    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.7.1"
+    sha256 arm64_tahoe:   "6330aa6f5363adfc64c592229f12e7c42b332b26b20436ae9e98d5cec78ed5f5"
+    sha256 arm64_sequoia: "d8a18896a66dab1f3ba06ff4a73dc2746e68bf8ad6ba7596b3437feb7dca4fd5"
   end
 
   depends_on "pkgconf" => :build
