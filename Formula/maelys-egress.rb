@@ -1,21 +1,21 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.23.0, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.23.0.tar.gz and
-# 19c8b8acd60ebc32a5d37410a493ee019a2e58a8956a558ee70c798ae1991560 are replaced with the released source archive of one tag. The
+# Rendered by maelys-release from this template: 0.24.1, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.24.1.tar.gz and
+# 988a257146ff1d3e787c5c6074950d1cab818e9b7e3ea3669fa525db063ba7a9 are replaced with the released source archive of one tag. The
 # pinned maelys-cli below is copied from dependencies/maelys-cli.pin of that
 # tag by scripts/render-homebrew-formula.sh.
 class MaelysEgress < Formula
   desc "Policy-enforced HTTP CONNECT and SOCKS5 network mediator in pure C"
   homepage "https://github.com/maelys-dev/maelys-egress"
-  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.23.0.tar.gz"
-  sha256 "19c8b8acd60ebc32a5d37410a493ee019a2e58a8956a558ee70c798ae1991560"
+  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.24.1.tar.gz"
+  sha256 "988a257146ff1d3e787c5c6074950d1cab818e9b7e3ea3669fa525db063ba7a9"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.23.0"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c45f962914136cff5e5beaa6b8fb9143bdb8094838a91184ef6bbb788409a95b"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "11ded68f640b5dc51db72b5ddb902193291b43f73eb1a36befe14c7c070d1f6a"
+    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.24.1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "1d64678098eb4681f491a3128f4b9e43e4fe9ec4d2ce8f5077619ec1c0410181"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a6016f5bbc7ff855019649639463fa6706296cf7c58df8db4d709cc8cc1d9046"
   end
 
   depends_on "python@3.13" => :build
@@ -47,7 +47,7 @@ class MaelysEgress < Formula
     sys = Formula["libmaelys-sys"]
     (testpath/"smoke.c").write <<~EOS
       #include <maelys/egress.h>
-      int main(void) { return MAELYS_EGRESS_ABI_VERSION == 3u ? 0 : 1; }
+      int main(void) { return MAELYS_EGRESS_ABI_COMPATIBLE_SINCE <= 3u && 3u <= MAELYS_EGRESS_ABI_VERSION ? 0 : 1; }
     EOS
     system ENV.cc, "-std=c11", "smoke.c", "-I#{include}", "-I#{sys.opt_include}",
            "-L#{lib}", "-L#{sys.opt_lib}", "-lmaelys_egress", "-lmaelys_sys",
@@ -55,7 +55,7 @@ class MaelysEgress < Formula
     system "./smoke"
     (testpath/"client-smoke.c").write <<~EOS
       #include <maelys/egress_client.h>
-      int main(void) { return maelys_egress_client_abi_version() == 1u ? 0 : 1; }
+      int main(void) { return maelys_egress_client_abi_compatible_since() <= 1u && 1u <= maelys_egress_client_abi_version() ? 0 : 1; }
     EOS
     system ENV.cc, "-std=c11", "client-smoke.c", "-I#{include}", "-L#{lib}",
            "-lmaelys_egress_client", "-o", "client-smoke"
