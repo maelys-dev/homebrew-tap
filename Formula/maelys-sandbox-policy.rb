@@ -7,14 +7,14 @@
 class MaelysSandboxPolicy < Formula
   desc "Compile portable sandbox decisions into canonical MIR and host plans"
   homepage "https://policy.maelys.dev"
-  url "https://github.com/maelys-dev/maelys-sandbox-policy/archive/refs/tags/v0.5.1.tar.gz"
-  sha256 "7659efc6de000ab1dd723fae957412b2bb3bc35bd30613f9c59f1ab0de3e214b"
+  url "https://github.com/maelys-dev/maelys-sandbox-policy/archive/refs/tags/v0.6.0.tar.gz"
+  sha256 "3f8c3586cb39bb2ff4938e7ea97af322228f214c08f3dc81bde85df7cbf8550a"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-sandbox-policy/releases/download/v0.5.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "18e6503106513eef2240838c0ce25d51df247ab537f7df96c9db23f3d729a283"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c820317d5175a8ef04d657d06f1497beac6049150fae269ff80429499a710884"
+    root_url "https://github.com/maelys-dev/maelys-sandbox-policy/releases/download/v0.6.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3d466bc13c1b41e5dc94bbf42b9b16441c5020d604fc0bd2ac174b5db33a5af3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7149fe4816685ed74fc892d365ba82849ed89f34603cef1778238292cf1eab15"
   end
 
   resource "maelys-cli" do
