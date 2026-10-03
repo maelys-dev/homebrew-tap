@@ -1,9 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.9.0, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.0.tar.gz and
-# 321a0543c54eb36431633f3de1c4adcba75cd042344a464cb25970a60effcd8c are replaced with the source archive of one tag, v0.5.30 and
-# da330c75c21daf8a03e42227012e20a4f9592549 with dependencies/maelys-cli.pin of that tag, by
+# Rendered by maelys-release from this template: 0.9.1, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.1.tar.gz and
+# 48408c76ba7de4035c0a513ed6dc40132431afcac3dc00f8d246676ad899f1a9 are replaced with the source archive of one tag, v0.5.31 and
+# ce4f0cb4ad25746d760dc47688fe2e2fdd832900 with dependencies/maelys-cli.pin of that tag, by
 # scripts/render-homebrew-formula.sh. The Maelys libraries are linked into
 # the terminal, so the tap's libmaelys-sys, libmaelys-json and libmaelys-http
 # formulas are build dependencies: the Makefile verifies each against the ABI
@@ -11,14 +11,14 @@
 class MaelysOci < Formula
   desc "Bounded OCI acquisition, canonical materialization and immutable artifact store"
   homepage "https://github.com/maelys-dev/maelys-oci"
-  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.0.tar.gz"
-  sha256 "321a0543c54eb36431633f3de1c4adcba75cd042344a464cb25970a60effcd8c"
+  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.1.tar.gz"
+  sha256 "48408c76ba7de4035c0a513ed6dc40132431afcac3dc00f8d246676ad899f1a9"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.9.0"
-    sha256 arm64_tahoe:   "43881d472dcb06e54d3716fc76d46686914e20d5b4b7ee9323e86be62f9a059a"
-    sha256 arm64_sequoia: "264aad6d43d988d3058e42e044c44e3389ca48a66a2309bd8aaa1489c4a505a4"
+    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.9.1"
+    sha256 arm64_tahoe:   "194652e76e02af21f172f32eb17500fd5aa99c016def948abee676baa665d633"
+    sha256 arm64_sequoia: "4407f068e57ebab74b73b9e6ab13025ff1d288ef2a335f022e8d2fefb583be58"
   end
 
   depends_on "libmaelys-http" => :build
@@ -32,16 +32,20 @@ class MaelysOci < Formula
 
   resource "maelys-cli" do
     url "https://github.com/maelys-dev/maelys-cli.git",
-        tag:      "v0.5.30",
-        revision: "da330c75c21daf8a03e42227012e20a4f9592549"
+        tag:      "v0.5.31",
+        revision: "ce4f0cb4ad25746d760dc47688fe2e2fdd832900"
   end
 
   def install
     cli_dir = buildpath/"vendor/maelys-cli"
     resource("maelys-cli").stage cli_dir
     # The terminal, the manifest that registers `maelys oci` with the
-    # dispatcher of the maelys formula, and the shell completions.
-    system "make", "install-command", "PREFIX=#{prefix}",
+    # dispatcher of the maelys formula, and the shell completions. Homebrew
+    # rewrites the library paths of the binary and signs it again after this
+    # step, when it bottles and when it pours: a digest taken by the build
+    # would name other bytes than those installed, and the dispatcher would
+    # refuse its whole catalog. The manifest declares none.
+    system "make", "install-command", "PREFIX=#{prefix}", "MANIFEST_DIGEST=omitted",
            "MAELYS_SYSTEM_PREFIX=#{formula_opt_prefix("libmaelys-sys")}",
            "MAELYS_JSON_PREFIX=#{formula_opt_prefix("libmaelys-json")}",
            "MAELYS_HTTP_PREFIX=#{formula_opt_prefix("libmaelys-http")}",
@@ -54,7 +58,11 @@ class MaelysOci < Formula
                  shell_output("#{bin}/maelys-oci version").strip
     summary = shell_output("#{bin}/maelys-oci describe --summary --format json --compact --non-interactive")
     assert_match(%r{"contract":"agent-cli/v2"}, summary)
-    manifest = share/"maelys/commands/oci.json"
-    assert_match bin/"maelys-oci", manifest.read
+    # What the dispatcher judges: the executable the manifest names, and a
+    # digest that is either absent or that of the binary as installed.
+    manifest = JSON.parse((share/"maelys/commands/oci.json").read)
+    assert_equal (prefix/"bin/maelys-oci").to_s, manifest["executable"]
+    declared = manifest.fetch("sha256", (bin/"maelys-oci").sha256)
+    assert_equal (bin/"maelys-oci").sha256, declared
   end
 end
