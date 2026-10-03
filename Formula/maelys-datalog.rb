@@ -5,14 +5,14 @@
 class MaelysDatalog < Formula
   desc "Command-line policy validation, solving and explanations for Maelys Datalog"
   homepage "https://github.com/maelys-dev/maelys-datalog-cli"
-  url "https://github.com/maelys-dev/maelys-datalog-cli/archive/refs/tags/v0.1.1.tar.gz"
-  sha256 "4ecd688229f8e210f8e7aaab0b5e82455eae4bc5dc5620d332c20c3643e26261"
+  url "https://github.com/maelys-dev/maelys-datalog-cli/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "0a979c4a7a0de07632011163346e4a4434b4b22c8ce43d47941510def32b0dda"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-datalog-cli/releases/download/v0.1.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "7ea07510d3d4695ed6fc9fbbb036a76e19a5807d3b9405bdb1e588a055f5dabc"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f0e2b1c99aeda24331b7162bb6d3ab4d642c261399dfeac087caca9ba21a3cf7"
+    root_url "https://github.com/maelys-dev/maelys-datalog-cli/releases/download/v0.2.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "e2a4732ba7de4ae2c69491418c278f0eb23b56ef33fa57eacc338b78359085f3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0db914a07b600b87f3b59b112208f8cc62f0b4ba77e527d5d384f2fa3828feab"
   end
 
   depends_on "cmake" => :build
@@ -20,7 +20,7 @@ class MaelysDatalog < Formula
 
   resource "maelys-datalog" do
     url "https://github.com/maelys-dev/maelys-datalog.git",
-        tag: "v0.17.0", revision: "0f363e31beb2dc318f069e41e81000b688d330aa"
+        tag: "v0.20.0", revision: "e418dfd2bd5473eceb40fc4323bee086cb4fe3bd"
   end
 
   resource "maelys-cli" do
@@ -44,7 +44,7 @@ class MaelysDatalog < Formula
   end
 
   test do
-    assert_equal "maelys-datalog 0.1.1",
+    assert_equal "maelys-datalog 0.2.0",
                  shell_output("#{bin}/maelys-datalog version").strip
     (testpath/"domain.json").write <<~JSON
       {"format":"maelys-datalog-domain-v1","name":"brew_smoke","predicates":[{"name":"input","arity":1,"role":"edb"},{"name":"allow","arity":1,"role":"idb","query":true}],"atoms":[]}
@@ -55,5 +55,7 @@ class MaelysDatalog < Formula
               "--facts #{testpath}/facts.dl #{testpath}/policy.dl"
     result = shell_output(command)
     assert_match 'allow("ok").', result
+    queries = shell_output("#{bin}/maelys-datalog queries --domain #{testpath}/domain.json #{testpath}/policy.dl")
+    assert_match "allow/1", queries
   end
 end
