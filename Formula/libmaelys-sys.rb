@@ -5,14 +5,14 @@
 class LibmaelysSys < Formula
   desc "Minimal callback-free POSIX systems foundation for C"
   homepage "https://github.com/maelys-dev/maelys-system"
-  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.12.0.tar.gz"
-  sha256 "d44d1a1eed84e793930c9846c3a8172fe5d9116235aa36c497d0756b7dc7e0eb"
+  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.12.1.tar.gz"
+  sha256 "00c174146290063fe66b38bff5ce91b42566ba86ee27a46beb6677fa37334831"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.12.0"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "aca8d846f8fe7bdfab4d1850a5fecc1e20724ab1326ac5e5977093f6a7500a28"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "29a01a39d8341bc9426aad3b586ed33c32ceeb3ab31edffec67227a64e5fbed1"
+    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.12.1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "22c74cb51fdd4142b6ac0f0eac48197eb12156c72703e136ff3d86396e922228"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7382a62879bbf61b8c26982b156c7cd8e0b07c206d04da3e20bf06176f62cd85"
   end
 
   # maelys-warden still vendors this library and its headers.
@@ -25,11 +25,35 @@ class LibmaelysSys < Formula
 
   test do
     (testpath/"smoke.c").write <<~EOS
+      #define _POSIX_C_SOURCE 200809L
       #include <maelys/sys.h>
+      #include <fcntl.h>
+      #include <sys/stat.h>
+      #include <unistd.h>
       int main(void) {
         maelys_sys_loop_t *loop = 0;
-        if (maelys_sys_loop_create(MAELYS_SYS_LOOP_AUTO, &loop)) return 1;
-        return maelys_sys_loop_destroy(&loop);
+        if (maelys_sys_loop_create(MAELYS_SYS_LOOP_AUTO, &loop) != MAELYS_SYS_OK) return 1;
+        if (maelys_sys_loop_destroy(&loop) != MAELYS_SYS_OK) return 2;
+        /* The component added last, through what was installed: a directory
+         * watched, one member created, that one change reported. */
+        maelys_sys_dirwatch_t *dirwatch = 0;
+        maelys_sys_dirwatch_entry_t entry = 0;
+        maelys_sys_dirwatch_change_t change;
+        size_t count = 0;
+        uint64_t deadline = 0;
+        unsigned ready = 0;
+        if (mkdir("watched", 0700) != 0) return 3;
+        if (maelys_sys_dirwatch_create(1, &dirwatch) != MAELYS_SYS_OK) return 4;
+        if (maelys_sys_dirwatch_add(dirwatch, "watched", 7, &entry) != MAELYS_SYS_OK) return 5;
+        int fd = open("watched/member", O_WRONLY | O_CREAT | O_EXCL, 0600);
+        if (fd < 0 || close(fd) != 0) return 6;
+        if (maelys_sys_deadline_after(3000, &deadline) != MAELYS_SYS_OK) return 7;
+        if (maelys_sys_fd_wait(maelys_sys_dirwatch_fd(dirwatch), MAELYS_SYS_INTEREST_READ,
+            deadline, &ready) != MAELYS_SYS_OK) return 8;
+        if (maelys_sys_dirwatch_poll(dirwatch, &change, 1, &count) != MAELYS_SYS_OK) return 9;
+        if (count != 1 || change.token != 7 || change.entry != entry ||
+          change.flags != MAELYS_SYS_DIRWATCH_CHANGED) return 10;
+        return maelys_sys_dirwatch_destroy(&dirwatch) == MAELYS_SYS_OK ? 0 : 11;
       }
     EOS
     system ENV.cc, "-std=c11", "-pthread", "smoke.c", "-I#{include}", "-L#{lib}",
