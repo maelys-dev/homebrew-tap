@@ -1,21 +1,21 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.28.3, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.28.3.tar.gz and
-# e59d187e649d2e81ece69ed98e71ce9b5ddbddcb03bf18cd86fa880554e6dca3 are replaced with the released source archive of one tag. The
+# Rendered by maelys-release from this template: 0.29.0, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.29.0.tar.gz and
+# b5191fcf1cf352a20e59df92c2b0cf568b99bb6a2494e5fdda1ae32aabe5a51e are replaced with the released source archive of one tag. The
 # pinned maelys-cli below is copied from dependencies/maelys-cli.pin of that
 # tag by scripts/render-homebrew-formula.sh.
 class MaelysEgress < Formula
   desc "Policy-enforced HTTP CONNECT and SOCKS5 network mediator in pure C"
   homepage "https://github.com/maelys-dev/maelys-egress"
-  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.28.3.tar.gz"
-  sha256 "e59d187e649d2e81ece69ed98e71ce9b5ddbddcb03bf18cd86fa880554e6dca3"
+  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.29.0.tar.gz"
+  sha256 "b5191fcf1cf352a20e59df92c2b0cf568b99bb6a2494e5fdda1ae32aabe5a51e"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.28.3"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3ab56eebe908ece3c46f5591538e148e0830d5997119a86fdc145f25adfef085"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7ecc53d1f12dc0f5f58a0796bc21315e1b6a710a46b60d3d09d657264e6cee6b"
+    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.29.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "2cae39a58647749b913a4f50f5a193ba802d8bc41f21c7fa5e12b933f59d4821"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9655c310f3c47e857213fbb3bf7b0d1dcd454cd5ad55bdf459b52f0966677b2b"
   end
 
   depends_on "python@3.13" => :build
@@ -23,8 +23,8 @@ class MaelysEgress < Formula
 
   resource "maelys-cli" do
     url "https://github.com/maelys-dev/maelys-cli.git",
-        tag:      "v0.5.36",
-        revision: "edf7591efa13c4e1249a5a6d88bea0e97c21555b"
+        tag:      "v0.6.0",
+        revision: "85964ae983a76660f7b2e4f45e74c8958648250c"
   end
 
   def install
