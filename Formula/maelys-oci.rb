@@ -17,8 +17,8 @@ class MaelysOci < Formula
 
   bottle do
     root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.9.7"
-    sha256 arm64_tahoe:   "db118258a5dff42ccb9bdbb6a0ccb6a417d0ff2495e99beb488dcbe5f1157df6"
-    sha256 arm64_sequoia: "78eebebd0f0f53932474a0cc0f470030b5bad37309889cdf4f016fe7d2e60b53"
+    sha256 arm64_tahoe:   "1d0f9225347e2fb4468cc624a92ed1a3384875b19056d55561ba43f15a53911c"
+    sha256 arm64_sequoia: "83f13b391142d724053ef020f9164a9ad56a8ba066e81aeb2e04a82fb02b0704"
   end
 
   depends_on "libmaelys-http" => :build
