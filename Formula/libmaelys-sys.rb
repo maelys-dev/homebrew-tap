@@ -5,14 +5,14 @@
 class LibmaelysSys < Formula
   desc "Minimal callback-free POSIX systems foundation for C"
   homepage "https://github.com/maelys-dev/maelys-system"
-  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.12.3.tar.gz"
-  sha256 "6732217f5f0bf1462168bb3ba11fc5b613e2c133667e44747716975bf16c73e5"
+  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.13.0.tar.gz"
+  sha256 "cad451a3a24dfee8d926ac1640c7c31290565162976ba4fe1dbd80037858785a"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.12.3"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c75f54fe722fe531f0a49e5739833a56396ce4a9abe7c57f7808555712edc2d8"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6ad85cb67798f6acc63b9a7d30fb44618459b05b099826f63e8a6104de685b26"
+    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.13.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "845c698a25fe8bfc93e107aae81b63bdcd54ed6c9d36df2b65cd48f2732a9c78"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2d7e803e4104fc234505ddbb4931eb31a936fb98f6a4d8406ca50b9003a42836"
   end
 
   # maelys-warden still vendors this library and its headers.
@@ -53,7 +53,17 @@ class LibmaelysSys < Formula
         if (maelys_sys_dirwatch_poll(dirwatch, &change, 1, &count) != MAELYS_SYS_OK) return 9;
         if (count != 1 || change.token != 7 || change.entry != entry ||
           change.flags != MAELYS_SYS_DIRWATCH_CHANGED) return 10;
-        return maelys_sys_dirwatch_destroy(&dirwatch) == MAELYS_SYS_OK ? 0 : 11;
+      if (maelys_sys_dirwatch_destroy(&dirwatch) != MAELYS_SYS_OK) return 11;
+      /* A program started with no descriptor at all, followed, reaped. */
+      char *argv[] = {"sh", "-c", "exit 3", 0};
+      maelys_sys_process_options_t options = {.path = "/bin/sh", .argv = argv};
+      maelys_sys_process_t *process = 0;
+      maelys_sys_process_status_t status;
+      if (maelys_sys_process_spawn(&options, &process) != MAELYS_SYS_OK) return 12;
+      if (maelys_sys_deadline_after(3000, &deadline) != MAELYS_SYS_OK) return 13;
+      if (maelys_sys_process_wait(process, deadline, &status) != MAELYS_SYS_OK) return 14;
+      if (!status.exited || status.exit_code != 3) return 15;
+      return maelys_sys_process_release(&process) == MAELYS_SYS_OK ? 0 : 16;
       }
     EOS
     system ENV.cc, "-std=c11", "-pthread", "smoke.c", "-I#{include}", "-L#{lib}",
