@@ -14,8 +14,8 @@ class LibmaelysCli < Formula
 
   bottle do
     root_url "https://github.com/maelys-dev/maelys-cli/releases/download/v0.6.5"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "f94635256d16a841b2e9f61630a2721193484b81fcafa4f0e4a4382939f2185f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2cd15db72e24820b1a808fcc9052b57a5077576286dcb23e80673ea539e1aee6"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "0295ff065d309dc634a65a79c08a894f38995e01c5ee7e54f6eb8c53983342b7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b0fccef51b09cc4f854b3542aa1745e7dc9daa412d84c0800eeddeaa81393394"
   end
 
   depends_on "libmaelys-json"
