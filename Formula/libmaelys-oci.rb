@@ -1,9 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.9.6, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.6.tar.gz and
-# 74152b3eddd0ffdcd857a1fa130706cefac5700c3a35e5e23df1f918372ffdb8 are replaced with the source archive of one tag, v0.6.2 and
-# 91145f61c2484e7dfa1b2877b8850bad105e56e6 with dependencies/maelys-cli.pin of that tag, by
+# Rendered by maelys-release from this template: 0.9.7, https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.7.tar.gz and
+# 75ab95167607ab59ca475a4e9404cd142356d00d1af2286108f6f10d5f09b778 are replaced with the source archive of one tag, v0.6.4 and
+# 04a312e359a60aefafb9e40df4dcfa1a48e2507e with dependencies/maelys-cli.pin of that tag, by
 # scripts/render-homebrew-formula.sh. Maelys System, JSON and HTTP come from
 # the tap's libmaelys-sys, libmaelys-json and libmaelys-http formulas: the
 # Makefile verifies each installed library against the ABI this tree was
@@ -11,14 +11,14 @@
 class LibmaelysOci < Formula
   desc "Bounded OCI acquisition, canonical materialization and immutable artifact store"
   homepage "https://github.com/maelys-dev/maelys-oci"
-  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.6.tar.gz"
-  sha256 "74152b3eddd0ffdcd857a1fa130706cefac5700c3a35e5e23df1f918372ffdb8"
+  url "https://github.com/maelys-dev/maelys-oci/archive/refs/tags/v0.9.7.tar.gz"
+  sha256 "75ab95167607ab59ca475a4e9404cd142356d00d1af2286108f6f10d5f09b778"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.9.6"
-    sha256 arm64_tahoe:   "122d6e4fe489492c636dd90b7d63c865db953c4b608a6f6124dad84ebf493054"
-    sha256 arm64_sequoia: "de8fb331da2df700ed29c71048e0baab81dd176e9717d10505e6d0910b188814"
+    root_url "https://github.com/maelys-dev/maelys-oci/releases/download/v0.9.7"
+    sha256 arm64_tahoe:   "eed1d9b6b883921a48626e83f89ff9250fb5cc3d77c43923da734e729974ef86"
+    sha256 arm64_sequoia: "9a0a1225caa6d3dcbde766fae75de0e6ddd2cb6a82db1e8ccb3ae745c9e31797"
   end
 
   depends_on "pkgconf" => :build
@@ -34,8 +34,8 @@ class LibmaelysOci < Formula
   # bind the pkg-config file to it; this formula installs neither.
   resource "maelys-cli" do
     url "https://github.com/maelys-dev/maelys-cli.git",
-        tag:      "v0.6.2",
-        revision: "91145f61c2484e7dfa1b2877b8850bad105e56e6"
+        tag:      "v0.6.4",
+        revision: "04a312e359a60aefafb9e40df4dcfa1a48e2507e"
   end
 
   def install
