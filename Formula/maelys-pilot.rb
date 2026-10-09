@@ -2,20 +2,20 @@
 # frozen_string_literal: true
 
 # The pilot's formula, rendered by the socle's tap workflow from this
-# template: 0.4.1, https://github.com/maelys-dev/maelys-pilot/archive/refs/tags/v0.4.1.tar.gz and 5795de0b90f3399c7dd651b429ddc48474a5655ec225df7986f28c6822dfc8a5 become the source archive of one
+# template: 0.4.2, https://github.com/maelys-dev/maelys-pilot/archive/refs/tags/v0.4.2.tar.gz and f0cd8a6b2454ac519bf9e1ef92b35113b7bc22ebfc17dfc36e0f05a40c051b1c become the source archive of one
 # tag. It exists so that the socle's Homebrew path -- render, bottle, pour,
 # test, publish -- runs on the pilot before it runs on a product.
 class MaelysPilot < Formula
   desc "Smallest product the Maelys socle can release, kept to try its writes"
   homepage "https://github.com/maelys-dev/maelys-pilot"
-  url "https://github.com/maelys-dev/maelys-pilot/archive/refs/tags/v0.4.1.tar.gz"
-  sha256 "5795de0b90f3399c7dd651b429ddc48474a5655ec225df7986f28c6822dfc8a5"
+  url "https://github.com/maelys-dev/maelys-pilot/archive/refs/tags/v0.4.2.tar.gz"
+  sha256 "f0cd8a6b2454ac519bf9e1ef92b35113b7bc22ebfc17dfc36e0f05a40c051b1c"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-pilot/releases/download/v0.4.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "05df636a2e9ecf860a47b120306e480948b6c6c3e9e4418fddc9d8c434b13950"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "48717a2878ad7f9199bedf7794445ab60690bd7ca52d4a48a10c5eb11be7a778"
+    root_url "https://github.com/maelys-dev/maelys-pilot/releases/download/v0.4.2"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "487f0ae5b513001f8a4d2d4ce457723f2184e16512650410dd7c409e3e90e1a1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c616570fadf403c067df027061e776d6d52c92c89e7a00307b66da331cb55899"
   end
 
   def install
