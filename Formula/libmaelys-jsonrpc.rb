@@ -7,14 +7,14 @@
 class LibmaelysJsonrpc < Formula
   desc "Bounded JSON-RPC 2.0 documents and request correlation for C11"
   homepage "https://github.com/maelys-dev/maelys-jsonrpc"
-  url "https://github.com/maelys-dev/maelys-jsonrpc/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "25f4734b8d4dd3fed04c1bbe8e708fc0a6f52d28749a24c353b0c2845f794221"
+  url "https://github.com/maelys-dev/maelys-jsonrpc/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "55ca02f6389d76f70383f86c0a1490d3e1c43c4f63805f304e42180bd15b0f65"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-jsonrpc/releases/download/v0.1.0"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "1768e27c4e44179a707a90a62fe903efee50539fe3eb7be1fd624a524ca2118f"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d8b94cb097e7b77718acd888ac9a3c898df07f6bd331f945fc63815bbca6614e"
+    root_url "https://github.com/maelys-dev/maelys-jsonrpc/releases/download/v0.2.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "07c57ee78b6f789ed0af0fa9d96993263200e4f5e73f5f919851dea918fb5c32"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4a27f7722f7ad1cc031562a5a15e3b10a725d9b68ec1247804754e209ebf4819"
   end
 
   depends_on "cmake" => :build
