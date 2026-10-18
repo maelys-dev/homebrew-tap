@@ -5,14 +5,14 @@
 class LibmaelysDatalog < Formula
   desc "Bounded Datalog policy engine and public C extension SDK"
   homepage "https://github.com/maelys-dev/maelys-datalog"
-  url "https://github.com/maelys-dev/maelys-datalog/archive/refs/tags/v0.23.1.tar.gz"
-  sha256 "5fcb1d42127efb3b9cc3c629815835b27d370cc21bb90510862711983fa37e1d"
+  url "https://github.com/maelys-dev/maelys-datalog/archive/refs/tags/v0.24.0.tar.gz"
+  sha256 "9f526cb302cce07b9899c7a22296fa558093324544935a12cd2bac74e20206d8"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-datalog/releases/download/v0.23.1"
-    sha256 cellar: :any, arm64_tahoe:   "0001f4ac1903c7ce9c81659af79922e936e88cff195ab3ac23ff0a656356dc06"
-    sha256 cellar: :any, arm64_sequoia: "b158048b3368de8278343ffbc71e9cb7535547f2d2b6b2811067b0a614066d82"
+    root_url "https://github.com/maelys-dev/maelys-datalog/releases/download/v0.24.0"
+    sha256 cellar: :any, arm64_tahoe:   "31ac217ad21ea82a8835f119a03b4d02b770c7b64e216a880fd0f501368c6b13"
+    sha256 cellar: :any, arm64_sequoia: "3b72931442c2fdeb5530592a7b6162e03b83f8077ca2aa0c6956a500a0cab27e"
   end
 
   depends_on "cmake" => :build
