@@ -5,14 +5,14 @@
 class LibmaelysSys < Formula
   desc "Minimal callback-free POSIX systems foundation for C"
   homepage "https://github.com/maelys-dev/maelys-system"
-  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.13.2.tar.gz"
-  sha256 "8ed683ff4a80c2b1dc1eda12bbb40e3784792dfc151fb93b654373700a52fa42"
+  url "https://github.com/maelys-dev/maelys-system/archive/refs/tags/v0.14.2.tar.gz"
+  sha256 "af24094071fe394cac88e7adbfd68ee2eedf7d15f26911deaa5c7635f2481111"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.13.2"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "47ba94e291eeba290c95383413b97ccd824fca98cee2958e9a60431a61fdb755"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e9471b484920798344b1625368960bdc7b407c4ff58af537b86b3eb3208d5fba"
+    root_url "https://github.com/maelys-dev/maelys-system/releases/download/v0.14.2"
+    sha256 arm64_tahoe:   "da317ab8c04a4d1cd5904e44b7efe6cbfaf9d2e023978ebd310aee4f76d395f8"
+    sha256 arm64_sequoia: "601b7999e76ac4fe6b945a1a3fed3fb2be1011d9fc1169ed3d6a824408307bf6"
   end
 
   # maelys-warden still vendors this library and its headers.
@@ -30,7 +30,7 @@ class LibmaelysSys < Formula
       #include <fcntl.h>
       #include <sys/stat.h>
       #include <unistd.h>
-      int main(void) {
+      int main(int argc, char **argv) {
         maelys_sys_loop_t *loop = 0;
         if (maelys_sys_loop_create(MAELYS_SYS_LOOP_AUTO, &loop) != MAELYS_SYS_OK) return 1;
         if (maelys_sys_loop_destroy(&loop) != MAELYS_SYS_OK) return 2;
@@ -55,19 +55,32 @@ class LibmaelysSys < Formula
           change.flags != MAELYS_SYS_DIRWATCH_CHANGED) return 10;
       if (maelys_sys_dirwatch_destroy(&dirwatch) != MAELYS_SYS_OK) return 11;
       /* A program started with no descriptor at all, followed, reaped. */
-      char *argv[] = {"sh", "-c", "exit 3", 0};
-      maelys_sys_process_options_t options = {.path = "/bin/sh", .argv = argv};
+      char *program_argv[] = {"sh", "-c", "exit 3", 0};
+      maelys_sys_process_options_t options = {.path = "/bin/sh", .argv = program_argv};
       maelys_sys_process_t *process = 0;
       maelys_sys_process_status_t status;
       if (maelys_sys_process_spawn(&options, &process) != MAELYS_SYS_OK) return 12;
       if (maelys_sys_deadline_after(3000, &deadline) != MAELYS_SYS_OK) return 13;
       if (maelys_sys_process_wait(process, deadline, &status) != MAELYS_SYS_OK) return 14;
       if (!status.exited || status.exit_code != 3) return 15;
-      return maelys_sys_process_release(&process) == MAELYS_SYS_OK ? 0 : 16;
+      if (maelys_sys_process_release(&process) != MAELYS_SYS_OK) return 16;
+      /* The same program as the leader of an owned group, through the
+       * keeper this formula installed. */
+      maelys_sys_owned_options_t owned_options = {.keeper_path = argv[1], .program = &options,
+          .flags = MAELYS_SYS_OWNED_END_WITH_LEADER};
+      maelys_sys_owned_t *owned = 0;
+      maelys_sys_owned_state_t state;
+      if (argc < 2) return 17;
+      if (maelys_sys_deadline_after(30000, &owned_options.start_deadline_ms) != MAELYS_SYS_OK) return 18;
+      if (maelys_sys_owned_spawn(&owned_options, &owned) != MAELYS_SYS_OK) return 19;
+      if (maelys_sys_deadline_after(10000, &deadline) != MAELYS_SYS_OK) return 20;
+      if (maelys_sys_owned_wait(owned, deadline, &state) != MAELYS_SYS_OK) return 21;
+      if (state.phase != MAELYS_SYS_OWNED_ENDED || !state.leader.exited || state.leader.exit_code != 3) return 22;
+      return maelys_sys_owned_release(&owned) == MAELYS_SYS_OK ? 0 : 23;
       }
     EOS
     system ENV.cc, "-std=c11", "-pthread", "smoke.c", "-I#{include}", "-L#{lib}",
            "-lmaelys_sys", "-o", "smoke"
-    system "./smoke"
+    system "./smoke", "#{libexec}/maelys-sys/keeper"
   end
 end
