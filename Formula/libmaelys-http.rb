@@ -2,22 +2,22 @@
 # frozen_string_literal: true
 
 # Rendered by the socle's tap workflow from this template, through
-# scripts/render-homebrew-formula.sh: https://github.com/maelys-dev/maelys-http/releases/download/v0.1.16/maelys-http-0.1.16.tar.gz, 0.1.16 and e9c3c7514238380818cc9e4a99046a4bdbea5266cb4e82a10d961f03b64401e1 name the
+# scripts/render-homebrew-formula.sh: https://github.com/maelys-dev/maelys-http/releases/download/v0.1.17/maelys-http-0.1.17.tar.gz, 0.1.17 and 8e5b58c9f04c98b12004c25bf0629d1a2cac9dff9290cb43b76ee70a4965ae4e name the
 # published source archive of one tag and the digest of those exact bytes,
-# and 0.13.0 in the comment below is copied from
+# and 0.14.3 in the comment below is copied from
 # dependencies/maelys-system.pin held inside that same archive. Nothing here
 # is typed at release time.
 class LibmaelysHttp < Formula
   desc "Bounded HTTP/1.1 codec and streaming client"
   homepage "https://github.com/maelys-dev/maelys-http"
-  url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.16/maelys-http-0.1.16.tar.gz"
-  sha256 "e9c3c7514238380818cc9e4a99046a4bdbea5266cb4e82a10d961f03b64401e1"
+  url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.17/maelys-http-0.1.17.tar.gz"
+  sha256 "8e5b58c9f04c98b12004c25bf0629d1a2cac9dff9290cb43b76ee70a4965ae4e"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.16"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "a96d812b859286377deca6733044e5fcf22c35268132a0f04fd78001bc07fc55"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "120f7531fcf7bf146cb207fe4d6097cb43f6197e5d33d0eee804b181bb1c4be3"
+    root_url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.17"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "cc460daca15db3a2154a061160b0ec95a2b02874798829fdc78c4bee15bdbbbb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "412cc19ca8a7fd230614fedb3919922747127ab59e53a87a0438ee24e11c34aa"
   end
 
   depends_on "libmaelys-sys"
@@ -26,7 +26,7 @@ class LibmaelysHttp < Formula
   depends_on "mbedtls"
 
   def install
-    # Built and tested against Maelys System 0.13.0, the version
+    # Built and tested against Maelys System 0.14.3, the version
     # dependencies/maelys-system.pin names at this tag.
     sys = Formula["libmaelys-sys"]
     args = ["SYSTEM_DIR=#{sys.opt_prefix}",
