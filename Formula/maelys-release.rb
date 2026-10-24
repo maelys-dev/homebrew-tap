@@ -1,8 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by the socle's own tap workflow from this template: 0.64.7,
-# https://github.com/maelys-dev/maelys-release/archive/refs/tags/v0.64.7.tar.gz and 89bf59188debfba2972b7a978d60e8cf3deee4a2aff0620cd3b0b9f39ce2872a become the source archive of one tag. Nothing new is
+# Rendered by the socle's own tap workflow from this template: 0.64.8,
+# https://github.com/maelys-dev/maelys-release/archive/refs/tags/v0.64.8.tar.gz and 28ccceb4482150e06483dfd27099b537302e0434f9bbbf8c9ac043b198ddf160 become the source archive of one tag. Nothing new is
 # published -- the archive is the one GitHub builds from the tag, and the
 # release of this repository stays the signed tag alone.
 #
@@ -14,8 +14,8 @@ class MaelysRelease < Formula
 
   desc "Shared release mechanics of the Maelys repositories"
   homepage "https://github.com/maelys-dev/maelys-release"
-  url "https://github.com/maelys-dev/maelys-release/archive/refs/tags/v0.64.7.tar.gz"
-  sha256 "89bf59188debfba2972b7a978d60e8cf3deee4a2aff0620cd3b0b9f39ce2872a"
+  url "https://github.com/maelys-dev/maelys-release/archive/refs/tags/v0.64.8.tar.gz"
+  sha256 "28ccceb4482150e06483dfd27099b537302e0434f9bbbf8c9ac043b198ddf160"
   license "MPL-2.0"
 
   # The program is Python 3.9 or later, standard library only. git is used by
@@ -38,7 +38,7 @@ class MaelysRelease < Formula
   end
 
   test do
-    assert_match "maelys-release 0.64.7", shell_output("#{bin}/maelys-release version")
+    assert_match "maelys-release 0.64.8", shell_output("#{bin}/maelys-release version")
     # Without the commit the archive carried, no product could be adopted
     # from this copy: the program would refuse rather than pin a guess.
     assert_match(/\A[0-9a-f]{40}\z/, (prefix/"INSTALLED.pin").read.lines[1].strip)
