@@ -1,21 +1,21 @@
 # typed: strict
 # frozen_string_literal: true
 
-# Rendered by maelys-release from this template: 0.34.0, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.34.0.tar.gz and
-# 6d904f6946ea99ec79a3547bcea4e9388c13615696dacf3d98da16560cce44da are replaced with the released source archive of one tag. The
+# Rendered by maelys-release from this template: 0.34.1, https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.34.1.tar.gz and
+# e0638fba5262ad64701b658575420dad1e9e1433c05bbf0cca7e3c179a3ea0b2 are replaced with the released source archive of one tag. The
 # pinned maelys-cli below is copied from dependencies/maelys-cli.pin of that
 # tag by scripts/render-homebrew-formula.sh.
 class MaelysEgress < Formula
   desc "Policy-enforced HTTP CONNECT and SOCKS5 network mediator in pure C"
   homepage "https://github.com/maelys-dev/maelys-egress"
-  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.34.0.tar.gz"
-  sha256 "6d904f6946ea99ec79a3547bcea4e9388c13615696dacf3d98da16560cce44da"
+  url "https://github.com/maelys-dev/maelys-egress/archive/refs/tags/v0.34.1.tar.gz"
+  sha256 "e0638fba5262ad64701b658575420dad1e9e1433c05bbf0cca7e3c179a3ea0b2"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.34.0"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "727d7c8929730c13532b1085b4bace26fff9dbdb33af7e293e9125b78ca4c108"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f8cb15e27030cb88b9beb2caccd3b7bcc959f86758b8199a33cd25113dfa5479"
+    root_url "https://github.com/maelys-dev/maelys-egress/releases/download/v0.34.1"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "c090c654ec5d285b43dfd953693b7d8f0814950fd81848aea77cdbd5f708ac73"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0feac608317bbbfbc6f796146522b89323d45ae6b6c96687978b8040621567b3"
   end
 
   depends_on "python@3.13" => :build
