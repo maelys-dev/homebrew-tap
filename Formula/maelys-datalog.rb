@@ -5,14 +5,14 @@
 class MaelysDatalog < Formula
   desc "Command-line policy validation, solving and explanations for Maelys Datalog"
   homepage "https://github.com/maelys-dev/maelys-datalog-cli"
-  url "https://github.com/maelys-dev/maelys-datalog-cli/archive/refs/tags/v0.4.1.tar.gz"
-  sha256 "0456205d0a260dd9d1c6380b7d99cd82104153d15d64b946b222d2044836f165"
+  url "https://github.com/maelys-dev/maelys-datalog-cli/archive/refs/tags/v0.5.0.tar.gz"
+  sha256 "c602d914af628c636e51d81d503ef54db33de7967d5e36779393b056f4559d1b"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-datalog-cli/releases/download/v0.4.1"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "3d0302db1ebe6798c9dd07ecdc9d5771375defc174a1b6366aee369cdb0fe1af"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d34491b5b81529b817151241351bb40a2a3efeccd320e830bc5dda6695d200ef"
+    root_url "https://github.com/maelys-dev/maelys-datalog-cli/releases/download/v0.5.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "5f5d3a1f93c8a54574f7f0b6d30a2c30513510ac469460452835f3ca362abf61"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bd400e72c34f2593deb5579df0e3f56dee3acae7e97834e44068dc5a45d7d46e"
   end
 
   depends_on "git" => :build
@@ -41,7 +41,7 @@ class MaelysDatalog < Formula
 
   test do
     assert_path_exists man1/"maelys-datalog.1"
-    assert_equal "maelys-datalog 0.4.1",
+    assert_equal "maelys-datalog 0.5.0",
                  shell_output("#{bin}/maelys-datalog version").strip
     (testpath/"domain.json").write <<~JSON
       {"format":"maelys-datalog-domain-v1","name":"brew_smoke","predicates":[{"name":"input","arity":1,"role":"edb"},{"name":"allow","arity":1,"role":"idb","query":true}],"atoms":[]}
