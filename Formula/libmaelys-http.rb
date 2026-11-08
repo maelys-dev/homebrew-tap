@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # Rendered by the socle's tap workflow from this template, through
-# scripts/render-homebrew-formula.sh: https://github.com/maelys-dev/maelys-http/releases/download/v0.1.19/maelys-http-0.1.19.tar.gz, 0.1.19 and 4a797df37bc2cd323f303cdf147b12442c72932beefce8f9ae8e9177a57ca861 name the
+# scripts/render-homebrew-formula.sh: https://github.com/maelys-dev/maelys-http/releases/download/v0.1.20/maelys-http-0.1.20.tar.gz, 0.1.20 and c521ed7aaef9dc8453e4887607405412f16855941211f3d8dce27f6a10291e7e name the
 # published source archive of one tag and the digest of those exact bytes,
 # and 0.15.0 in the comment below is copied from
 # dependencies/maelys-system.pin held inside that same archive. Nothing here
@@ -10,14 +10,14 @@
 class LibmaelysHttp < Formula
   desc "Bounded HTTP/1.1 codec and streaming client"
   homepage "https://github.com/maelys-dev/maelys-http"
-  url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.19/maelys-http-0.1.19.tar.gz"
-  sha256 "4a797df37bc2cd323f303cdf147b12442c72932beefce8f9ae8e9177a57ca861"
+  url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.20/maelys-http-0.1.20.tar.gz"
+  sha256 "c521ed7aaef9dc8453e4887607405412f16855941211f3d8dce27f6a10291e7e"
   license "MPL-2.0"
 
   bottle do
-    root_url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.19"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "9d92f9e6552feb8fa24721174fe73b3c5fff9bc1d9aade18df7ebcf68eda7f84"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5f503888cbfdd135f4ce7d36742f5278f3b838001b86b9fb891654817deed1d7"
+    root_url "https://github.com/maelys-dev/maelys-http/releases/download/v0.1.20"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:   "dab0c44be10139eb1043a4151cd71f085b9723def9e877c750df327b5a0b6a4c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1f217aa4d4cfa7ae159fe90407ab905cb61d1ab748bc0ebfaf97222c90b84b49"
   end
 
   depends_on "libmaelys-sys"
